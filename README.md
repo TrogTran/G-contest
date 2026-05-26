@@ -55,7 +55,7 @@ Financial behavior monitoring dashboard built with **Streamlit** + **Plotly**.
 
 ```bash
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run app.py   # app.py is the multi-page router
 ```
 
 ### Deploy to Streamlit Community Cloud (Free)
@@ -63,7 +63,7 @@ streamlit run app.py
 1. Push this repo to GitHub
 2. Go to [share.streamlit.io](https://share.streamlit.io)
 3. Sign in with GitHub
-4. Click **"New app"** → select this repo → branch `main` → file `app.py`
+4. Click **"New app"** → select this repo → branch `main` → file `app.py` (app.py is the multi-page router)
 5. Click **Deploy**
 
 Your dashboard will be live at `https://<app-name>.streamlit.app`.
@@ -78,7 +78,8 @@ Your dashboard will be live at `https://<app-name>.streamlit.app`.
 ## Project Structure
 
 ```
-├── app.py              # Main Streamlit application (Overview dashboard)
+├── app.py              # Multi-page router (st.navigation)
+├── overview.py         # Overview dashboard (original content)
 ├── pages/
 │   ├── 1_Sales_Analysis.py        # Sales performance page
 │   ├── 2_Customer_Insights.py     # Customer behavior page
