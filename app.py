@@ -50,6 +50,13 @@ st.markdown("""
     section[data-testid="stSidebar"] .stSlider > div > div {
         color: white;
     }
+    section[data-testid="stSidebar"] nav a {
+        color: rgba(255,255,255,0.85) !important;
+        font-weight: 500 !important;
+    }
+    section[data-testid="stSidebar"] nav a:hover {
+        color: #4facfe !important;
+    }
     section[data-testid="stSidebar"] hr {
         border-color: rgba(255,255,255,0.1);
         margin: 16px 0;

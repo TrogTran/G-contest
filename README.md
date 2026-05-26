@@ -6,8 +6,9 @@ Financial behavior monitoring dashboard built with **Streamlit** + **Plotly**.
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://YOUR-APP-NAME.streamlit.app)
 
-## Features
+## Pages
 
+### Overview (app.py)
 - **4 KPI metric cards** with gradient backgrounds (Total Customers, Credit Demand, Avg Propensity Score, Critical Alerts)
 - **Donut chart** — customer profile distribution
 - **Horizontal bar chart** — propensity score by segment (with target threshold)
@@ -15,6 +16,29 @@ Financial behavior monitoring dashboard built with **Streamlit** + **Plotly**.
 - **Bar chart** — alert flag distribution
 - **Top 10 priority customers** table with conditional formatting
 - **Interactive filters** — sidebar with customer profile, credit demand, alert level, and propensity range selectors
+
+### Sales Analysis (pages/1_Sales_Analysis.py)
+- Revenue & orders KPIs with period-over-period growth
+- Revenue trend over time with 7-day rolling average
+- Revenue breakdown by category and channel
+- Top selling categories by order volume
+- Filters: date range, category, channel
+
+### Customer Insights (pages/2_Customer_Insights.py)
+- Customer count, retention rate, LTV, and churn KPIs
+- Geographic distribution by region
+- Segment composition and value analysis
+- Lifetime value distribution by segment
+- Customer acquisition trend over time
+- Filters: region, segment, activity status
+
+### Product Performance (pages/3_Product_Performance.py)
+- Revenue, units sold, margin, and top product KPIs
+- Top 10 products by revenue (horizontal bar)
+- Revenue share by category (donut chart)
+- Profit vs units sold scatter matrix
+- Product ratings by category
+- Filters: category, price range, minimum rating
 
 ## Tech Stack
 
@@ -54,7 +78,11 @@ Your dashboard will be live at `https://<app-name>.streamlit.app`.
 ## Project Structure
 
 ```
-├── app.py              # Main Streamlit application
+├── app.py              # Main Streamlit application (Overview dashboard)
+├── pages/
+│   ├── 1_Sales_Analysis.py        # Sales performance page
+│   ├── 2_Customer_Insights.py     # Customer behavior page
+│   └── 3_Product_Performance.py   # Product profitability page
 ├── requirements.txt    # Python dependencies
 ├── .gitignore          # Git ignore rules
 ├── README.md           # This file
