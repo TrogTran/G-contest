@@ -168,12 +168,8 @@ st.markdown("""
     .stExpander details summary {
         padding: 12px 44px 12px 16px;
     }
-    .stExpander details summary span[data-testid="stIconMaterial"] {
-        position: absolute;
-        right: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 20px;
+    .stExpander details {
+        overflow: visible;
     }
     .stDataFrame { border-radius: 12px; overflow: hidden; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     footer { display: none; }
@@ -440,7 +436,7 @@ with col2:
         ),
         text=pb["avg_prop"].apply(lambda x: f"{x:.3f}"),
         textposition="outside",
-        textfont=dict(size=13, weight=600, color="#495057"),
+        textfont=dict(size=13, weight=700, color="#1a1a2e"),
         hovertemplate="<b>%{y}</b><br>Propensity: %{x:.3f}<extra></extra>",
         width=0.6,
     ))
