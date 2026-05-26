@@ -16,6 +16,11 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     * { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important; }
+    .material-icons, .material-symbols-outlined,
+    span[data-testid="stIconMaterial"] {
+        font-family: 'Material Icons', 'Material Icons Outlined', 'Material Symbols Outlined' !important;
+        font-size: inherit !important;
+    }
     .stExpander details summary span[data-testid="stIconMaterial"] {
         display: none !important;
     }
