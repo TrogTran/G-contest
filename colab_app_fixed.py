@@ -32,16 +32,8 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     * { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important; }
-    span[data-testid="stIconMaterial"] {
-        font-family: 'Material Icons', 'Material Symbols Outlined', 'Material Icons Outlined' !important;
-        font-size: 24px !important;
-        line-height: 1 !important;
-    }
     .stExpander details summary span[data-testid="stIconMaterial"] {
-        position: absolute;
-        right: 14px;
-        top: 50%;
-        transform: translateY(-50%);
+        display: none !important;
     }
 
     .stApp {
