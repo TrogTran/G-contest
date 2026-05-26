@@ -18,60 +18,78 @@ st.markdown("""
         position: absolute !important;
     }
 
+    /* ─── SIDEBAR DARK + ALL TEXT LIGHT ─── */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(195deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+        border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    section[data-testid="stSidebar"] * {
+        color: rgba(255,255,255,0.92) !important;
+    }
+
+    section[data-testid="stSidebar"] .stSelectbox > div > div {
+        background: rgba(255,255,255,0.1) !important;
+        border: 1px solid rgba(255,255,255,0.15) !important;
+        border-radius: 10px !important;
+        color: white !important;
+    }
+    section[data-testid="stSidebar"] .stSelectbox > div > div:hover {
+        border-color: rgba(255,255,255,0.3) !important;
+    }
+    section[data-testid="stSidebar"] [data-baseweb="select"] > div {
+        background: rgba(255,255,255,0.1) !important;
+    }
+    section[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.1); margin: 16px 0; }
+
+    /* ─── NAVIGATION LINKS (multi-selector) ─── */
+    a[data-testid="stPageLink"],
+    [data-testid="stPageLink"],
+    [role="link"],
+    section[data-testid="stSidebar"] a,
+    [data-testid="stSidebar"] a {
+        color: rgba(255,255,255,0.92) !important;
+        font-weight: 500 !important;
+        text-decoration: none !important;
+    }
+    a[data-testid="stPageLink"]:hover,
+    [data-testid="stPageLink"]:hover,
+    [role="link"]:hover,
+    section[data-testid="stSidebar"] a:hover {
+        color: #4facfe !important;
+    }
+    a[data-testid="stPageLink"][aria-current="page"],
+    [data-testid="stPageLink"][aria-current="page"],
+    [aria-current="page"],
+    section[data-testid="stSidebar"] a[aria-current="page"] {
+        color: #4facfe !important;
+        font-weight: 700 !important;
+    }
+
+    /* ─── SIDEBAR COLLAPSE >> ARROW ─── */
     button[data-testid="baseButton-header"] {
         position: relative !important;
+    }
+    button[data-testid="baseButton-header"] span[data-testid="stIconMaterial"] {
+        font-size: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
     }
     button[data-testid="baseButton-header"]::after {
         content: ">>" !important;
         font-family: 'Inter', sans-serif !important;
         font-size: 16px !important;
-        color: rgba(255,255,255,0.85) !important;
+        color: white !important;
         font-weight: 700 !important;
         position: absolute !important;
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-    }
-
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(195deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        border-right: 1px solid rgba(255,255,255,0.06);
-    }
-
-    section[data-testid="stSidebar"] .stMarkdown,
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] .stSelectbox label,
-    section[data-testid="stSidebar"] .stSlider label {
-        color: rgba(255,255,255,0.85) !important;
-    }
-    section[data-testid="stSidebar"] .stSelectbox > div > div {
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 10px;
-        color: white;
-    }
-    section[data-testid="stSidebar"] .stSelectbox > div > div:hover {
-        border-color: rgba(255,255,255,0.3);
-    }
-    section[data-testid="stSidebar"] [data-baseweb="select"] > div {
-        background: rgba(255,255,255,0.08) !important;
-    }
-    section[data-testid="stSidebar"] .stSlider > div > div { color: white; }
-    section[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.1); margin: 16px 0; }
-
-    section[data-testid="stSidebar"] a {
-        color: rgba(255,255,255,0.88) !important;
-        font-weight: 500 !important;
-        font-size: 14px !important;
-        text-decoration: none !important;
-    }
-    section[data-testid="stSidebar"] a:hover {
-        color: #4facfe !important;
-    }
-    section[data-testid="stSidebar"] a[aria-current="page"],
-    section[data-testid="stSidebar"] [aria-current="page"] {
-        color: #4facfe !important;
-        font-weight: 700 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     footer { display: none; }
