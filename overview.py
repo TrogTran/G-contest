@@ -287,6 +287,9 @@ df = generate_data(200, 42)
 # ──────────────────────────────────────────────────
 #  FILTER LOGIC
 
+seg = ["All"] + sorted(df["persona"].unique().tolist())
+sel_seg = st.sidebar.selectbox("Customer Profile", seg, label_visibility="collapsed")
+
 sel_hungry = st.sidebar.selectbox(
     "Credit Demand",
     ["All", "Credit Demand", "No Demand"],
@@ -306,9 +309,6 @@ st.sidebar.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# ──────────────────────────────────────────────────
-#  FILTER LOGIC
-# ──────────────────────────────────────────────────
 df_f = df.copy()
 if sel_seg != "All":
     df_f = df_f[df_f["persona"] == sel_seg]
@@ -411,7 +411,7 @@ with col1:
         plot_bgcolor="rgba(0,0,0,0)",
     )
 
-    st.plotly_chart(fig1, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
 
 with col2:
     st.markdown('<div class="section-title">Propensity Score by Segment</div>', unsafe_allow_html=True)
@@ -473,7 +473,7 @@ with col2:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig2, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig2, width='stretch', config={"displayModeBar": False})
 
 # ──────────────────────────────────────────────────
 #  ROW 2 — Histogram + Flags
@@ -532,7 +532,7 @@ with col3:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig3, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig3, width='stretch', config={"displayModeBar": False})
 
 with col4:
     st.markdown('<div class="section-title">Alert Flag Distribution</div>', unsafe_allow_html=True)
@@ -581,7 +581,7 @@ with col4:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig4, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
 
 # ──────────────────────────────────────────────────
 #  TABLE — Top 10 Priority Customers
@@ -610,7 +610,7 @@ styled = top10.style.map(
     else ("color:#D97706;font-weight:600;background:#FFF8E8" if v == "Alert" else ""),
     subset=["Alert Level"])
 
-st.dataframe(styled, use_container_width=True, height=280)
+st.dataframe(styled, width='stretch', height=280)
 
 # ──────────────────────────────────────────────────
 #  EXPANDER — Raw Data
@@ -620,7 +620,7 @@ with st.expander("Detailed Data", expanded=False):
         df_f[["CUSTOMER_NUMBER", "persona", "credit_propensity",
               "credit_hungry_label", "ir_query_count", "priority",
               "anomaly_score", "rule_flags"]].reset_index(drop=True),
-        use_container_width=True,
+        width='stretch',
         height=300)
 
 # ──────────────────────────────────────────────────

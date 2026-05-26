@@ -59,19 +59,19 @@ st.markdown("""
     section[data-testid="stSidebar"] .stSlider > div > div { color: white; }
     section[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.1); margin: 16px 0; }
 
-    section[data-testid="stSidebar"] nav a {
-        color: rgba(255,255,255,0.85) !important;
+    section[data-testid="stSidebar"] a {
+        color: rgba(255,255,255,0.88) !important;
         font-weight: 500 !important;
         font-size: 14px !important;
+        text-decoration: none !important;
     }
-    section[data-testid="stSidebar"] nav a:hover {
+    section[data-testid="stSidebar"] a:hover {
         color: #4facfe !important;
     }
-    section[data-testid="stSidebar"] nav a[aria-current="page"] {
+    section[data-testid="stSidebar"] a[aria-current="page"],
+    section[data-testid="stSidebar"] [aria-current="page"] {
         color: #4facfe !important;
         font-weight: 700 !important;
-        border-left: 3px solid #4facfe !important;
-        padding-left: 8px !important;
     }
 
     footer { display: none; }
