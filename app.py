@@ -165,6 +165,16 @@ st.markdown("""
         box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
     .stExpander:hover { border-color: #4facfe; }
+    .stExpander details summary {
+        padding: 12px 44px 12px 16px;
+    }
+    .stExpander details summary span[data-testid="stIconMaterial"] {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+    }
     .stDataFrame { border-radius: 12px; overflow: hidden; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     footer { display: none; }
     #MainMenu { visibility: hidden; }
