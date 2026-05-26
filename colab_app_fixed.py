@@ -21,7 +21,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 
-st.set_page_config(page_title="Customer Intelligence Dashboard", page_icon="chart_with_upwards_trend",
+st.set_page_config(page_title="Customer Intelligence Dashboard", page_icon=":bar_chart:",
                    layout="wide", initial_sidebar_state="expanded")
 
 # ──────────────────────────────────────────────────
@@ -32,6 +32,7 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     * { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important; }
+    span[data-testid="stIconMaterial"] { font-family: 'Material Icons' !important; }
 
     .stApp {
         background: #F0F2F6;
@@ -150,13 +151,14 @@ st.markdown("""
     /* ─── CHART CARDS — Wrap each chart in a white card ─── */
     div[data-testid="column"] {
         background: white;
+        border: 1px solid #E9ECEF;
         border-radius: 16px;
         padding: 16px 20px 12px 20px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
     div[data-testid="column"]:hover {
-        box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+        box-shadow: 0 8px 28px rgba(0,0,0,0.10);
     }
     div[data-testid="column"] .section-title {
         margin-top: 0;
@@ -179,12 +181,14 @@ st.markdown("""
         border-radius: 12px;
         background: white;
         box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        overflow: visible;
     }
     .stExpander:hover { border-color: #4facfe; }
+    .stExpander details {
+        overflow: visible;
+    }
     .stExpander details summary {
         padding: 12px 44px 12px 16px;
-    }
-    .stExpander details {
         overflow: visible;
     }
     .stDataFrame { border-radius: 12px; overflow: hidden; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
@@ -414,7 +418,7 @@ with col1:
         hole=0.55,
         hoverinfo="label+value+percent",
         hovertemplate="<b>%{label}</b><br>Count: %{value:,}<br>Rate: %{percent}<extra></extra>",
-        textfont=dict(size=12, color="#495057"),
+        textfont=dict(size=12, color="#1a1a2e", weight=600),
         rotation=45,
     ))
 
@@ -468,19 +472,19 @@ with col2:
     fig2.update_layout(
         height=400,
         xaxis=dict(
-            title="Avg Propensity Score",
+            title=dict(text="Avg Propensity Score", font=dict(size=12, color="#1a1a2e")),
             range=[0, 0.7],
             gridcolor="#F1F3F5",
             gridwidth=1,
             automargin=True,
-            tickfont=dict(size=11),
+            tickfont=dict(size=11, color="#1a1a2e"),
         ),
         yaxis=dict(
             title="",
             gridcolor="#F1F3F5",
             gridwidth=1,
             automargin=True,
-            tickfont=dict(size=12, weight=600),
+            tickfont=dict(size=12, weight=600, color="#1a1a2e"),
         ),
         margin=dict(l=140, r=40, t=10, b=10),
         template="plotly_white",
@@ -529,16 +533,16 @@ with col3:
     fig3.update_layout(
         height=400,
         xaxis=dict(
-            title="Credit Propensity Score",
+            title=dict(text="Credit Propensity Score", font=dict(size=12, color="#1a1a2e")),
             gridcolor="#F1F3F5",
             automargin=True,
-            tickfont=dict(size=11),
+            tickfont=dict(size=11, color="#1a1a2e"),
         ),
         yaxis=dict(
-            title="Customers",
+            title=dict(text="Customers", font=dict(size=12, color="#1a1a2e")),
             gridcolor="#F1F3F5",
             automargin=True,
-            tickfont=dict(size=11),
+            tickfont=dict(size=11, color="#1a1a2e"),
         ),
         margin=dict(l=50, r=20, t=10, b=10),
         template="plotly_white",
@@ -571,7 +575,7 @@ with col4:
         ),
         text=flags["count"],
         textposition="outside",
-        textfont=dict(size=14, weight=600, color="#495057"),
+        textfont=dict(size=14, weight=700, color="#1a1a2e"),
         hovertemplate="<b>%{x}</b><br>Count: %{y:,}<extra></extra>",
         width=0.55,
     ))
@@ -582,13 +586,13 @@ with col4:
             title="",
             gridcolor="#F1F3F5",
             automargin=True,
-            tickfont=dict(size=11, weight=500),
+            tickfont=dict(size=11, weight=500, color="#1a1a2e"),
         ),
         yaxis=dict(
-            title="Customers",
+            title=dict(text="Customers", font=dict(size=12, color="#1a1a2e")),
             gridcolor="#F1F3F5",
             automargin=True,
-            tickfont=dict(size=11),
+            tickfont=dict(size=11, color="#1a1a2e"),
         ),
         margin=dict(l=50, r=20, t=10, b=10),
         template="plotly_white",
