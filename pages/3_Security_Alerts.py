@@ -57,7 +57,7 @@ flag_vals = sorted(df["rule_flags"].dropna().unique().tolist())
 sel_flags = st.sidebar.multiselect(
     "Rule Flags", flag_vals, default=[f for f in flag_vals if f > 0]
 )
-s_min = float(df[df["anomaly_score"] > 0]["anomaly_score"].min())
+s_min = float(df["anomaly_score"].min())
 s_max = float(df["anomaly_score"].max())
 sel_score = st.sidebar.slider("Anomaly Score", s_min, s_max, (s_min, s_max), step=0.005)
 if "persona" in df.columns:
@@ -155,10 +155,7 @@ with c1:
         color_discrete_map=PRIORITY_COLORS,
         hole=0.5,
     )
-    fig1.update_traces(
-        textposition="outside",
-        textinfo="percent+label",
-        textfont_size=11,
+    fig1.update_traces(textinfo="percent+label",
         marker_line_width=2,
         marker_line_color="white",
     )
@@ -185,12 +182,10 @@ with c2:
         rf,
         x="label",
         y="count",
-        text="count",
         color="label",
         color_discrete_sequence=colors,
     )
-    fig2.update_traces(
-        textposition="outside", textfont_size=10, marker_line_width=0, showlegend=False
+    fig2.update_traces(marker_line_width=0, showlegend=False
     )
     fig2.update_layout(
         **{

@@ -76,8 +76,9 @@ f = df.copy()
 if sel_persona:
     f = f[f["persona"].isin(sel_persona)]
 if sel_cluster:
-    f = f[f["cluster"].isin(sel_cluster)]
-f = f[(f["active_months"] >= sel_months[0]) & (f["active_months"] <= sel_months[1])]
+    f = f[f["cluster"].astype(int).isin(sel_cluster)]
+if sel_months[0] > am_min or sel_months[1] < am_max:
+    f = f[(f["active_months"] >= sel_months[0]) & (f["active_months"] <= sel_months[1])]
 
 # ── HEADER ─────────────────────────────────────────────────────────────────
 page_nav = st.columns(4)
@@ -150,9 +151,8 @@ with c1:
         orientation="h",
         color="persona",
         color_discrete_map=PERSONA_COLORS,
-        text="count",
     )
-    fig1.update_traces(textposition="outside", textfont_size=10, marker_line_width=0)
+    fig1.update_traces(marker_line_width=0)
     fig1.update_layout(
         **{
             **PLOTLY_LAYOUT,
@@ -178,10 +178,8 @@ with c2:
             orientation="h",
             color="persona",
             color_discrete_map=PERSONA_COLORS,
-            text="avg_outflow_M",
         )
         fig2.update_traces(
-            textposition="outside", textfont_size=10
         )
         fig2.update_layout(
             **{
@@ -281,10 +279,8 @@ with c5:
             orientation="h",
             color="persona",
             color_discrete_map=PERSONA_COLORS,
-            text="alert_rate",
         )
         fig5.update_traces(
-            textposition="outside", textfont_size=10
         )
         fig5.update_layout(
             **{
@@ -316,10 +312,8 @@ with c6:
             orientation="h",
             color="persona",
             color_discrete_map=PERSONA_COLORS,
-            text="avg_propensity",
         )
         fig6.update_traces(
-            textposition="outside", textfont_size=10
         )
         fig6.update_layout(
             **{

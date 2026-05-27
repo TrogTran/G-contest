@@ -73,7 +73,8 @@ if sel_priority != "All":
     f = f[f["priority"] == sel_priority]
 if sel_flags:
     f = f[f["rule_flags"].isin(sel_flags)]
-f = f[(f["anomaly_score"] >= sel_score[0]) & (f["anomaly_score"] <= sel_score[1])]
+if sel_score[0] > score_min or sel_score[1] < score_max:
+    f = f[(f["anomaly_score"] >= sel_score[0]) & (f["anomaly_score"] <= sel_score[1])]
 if sel_persona != "All" and "persona" in f.columns:
     f = f[f["persona"] == sel_persona]
 
@@ -159,10 +160,7 @@ with c1:
         color_discrete_map=PRIORITY_COLORS,
         hole=0.5,
     )
-    fig1.update_traces(
-        textposition="outside",
-        textinfo="percent+label",
-        textfont_size=11,
+    fig1.update_traces(textinfo="percent+label",
         marker_line_width=2,
         marker_line_color="white",
     )
@@ -189,10 +187,8 @@ with c2:
             orientation="h",
             color="persona",
             color_discrete_map=PERSONA_COLORS,
-            text="count",
         )
-        fig2.update_traces(
-            textposition="outside", textfont_size=10, marker_line_width=0
+        fig2.update_traces(marker_line_width=0
         )
         fig2.update_layout(
             **{
@@ -212,9 +208,9 @@ with c2:
         rc = f["rule_flags"].value_counts().sort_index().reset_index()
         rc.columns = ["flags", "count"]
         fig2 = px.bar(
-            rc, x="flags", y="count", text="count", color_discrete_sequence=[C_TEAL]
+            rc, x="flags", y="count", color_discrete_sequence=[C_TEAL]
         )
-        fig2.update_traces(textposition="outside", textfont_size=10)
+        fig2.update_traces()
         fig2.update_layout(
             **{
                 **PLOTLY_LAYOUT,
@@ -305,10 +301,6 @@ if "credit_propensity" in f.columns and "persona" in f.columns:
             orientation="h",
             color="persona",
             color_discrete_map=PERSONA_COLORS,
-            text="credit_propensity",
-        )
-        fig5.update_traces(
-            textposition="outside", textfont_size=10
         )
         fig5.update_layout(
             **{

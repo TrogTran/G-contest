@@ -99,7 +99,8 @@ if sel_hungry == "Credit Hungry Only":
     f = f[f["credit_hungry"] == 1]
 elif sel_hungry == "Non-Hungry":
     f = f[f["credit_hungry"] == 0]
-f = f[(f["credit_propensity"] >= sel_prop[0]) & (f["credit_propensity"] <= sel_prop[1])]
+if sel_prop[0] > prop_min or sel_prop[1] < prop_max:
+    f = f[(f["credit_propensity"] >= sel_prop[0]) & (f["credit_propensity"] <= sel_prop[1])]
 if sel_pt != "All" and "product_type" in f.columns:
     f = f[f["product_type"] == sel_pt]
 if sel_persona != "All" and "persona" in f.columns:
@@ -221,10 +222,7 @@ with c2:
             hole=0.45,
             color_discrete_sequence=[C_NAVY, C_TEAL, C_AMBER],
         )
-        fig2.update_traces(
-            textposition="outside",
-            textinfo="percent+label",
-            textfont_size=11,
+        fig2.update_traces(textinfo="percent+label",
             marker_line_width=2,
             marker_line_color="white",
         )
@@ -282,10 +280,6 @@ with c3:
             orientation="h",
             color="persona",
             color_discrete_map=PERSONA_COLORS,
-            text="credit_propensity",
-        )
-        fig3.update_traces(
-            textposition="outside", textfont_size=10
         )
         fig3.update_layout(
             **{
