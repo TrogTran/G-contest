@@ -264,10 +264,13 @@ _CSS = """
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     gap: 6px;
     align-items: center;
+    justify-content: space-evenly !important;
   }
   section[data-testid="stMain"] div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="column"] {
     padding: 0 !important;
-    flex: 1;
+    flex: 1 1 0% !important;
+    text-align: center !important;
+    min-width: 0 !important;
   }
   section[data-testid="stMain"] div[data-testid="stHorizontalBlock"]:first-of-type a[data-testid="stPageLink"] {
     display: block;
