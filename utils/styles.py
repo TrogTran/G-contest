@@ -13,11 +13,21 @@ import streamlit as st
 _CSS = """
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+  @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
   /* ── RESET / BASE ────────────────────────────────────────────────── */
   *, *::before, *::after {
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif !important;
     box-sizing: border-box;
+  }
+  /* Restore Material Icons font for icon elements (prevent ligature text leak) */
+  span[data-testid="stIconMaterial"],
+  .material-icons,
+  .material-symbols-outlined {
+    font-family: 'Material Icons Outlined', 'Material Icons', 'Material Symbols Outlined' !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
   }
   .stApp { background: #F7F9FC !important; }
 
