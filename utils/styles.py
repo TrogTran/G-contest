@@ -344,16 +344,13 @@ def apply_styles() -> None:
 def sidebar_header(title: str = "Intelligence", subtitle: str = "Dashboard") -> None:
     """Render branded sidebar header."""
     st.sidebar.markdown(
-        f"""<div style="padding:18px 4px 12px 4px;text-align:center;">
-          <div style="font-size:10px;font-weight:700;letter-spacing:2px;
-                      text-transform:uppercase;color:rgba(255,255,255,0.35);
-                      margin-bottom:6px;">CUSTOMER</div>
-          <div style="font-size:17px;font-weight:800;color:white;
-                      letter-spacing:0.3px;">{title}</div>
-          <div style="font-size:10px;font-weight:500;letter-spacing:2px;
-                      text-transform:uppercase;color:#5eb8c8;margin-top:3px;">{subtitle}</div>
-        </div>
-        <div style="height:1px;background:rgba(255,255,255,0.08);margin:0 4px 12px 4px;"></div>""",
+        f"<div style='padding:18px 4px 12px 4px;text-align:center;'>"
+        f"<div style='font-size:10px;font-weight:700;letter-spacing:2px;"
+        f"text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;'>CUSTOMER</div>"
+        f"<div style='font-size:17px;font-weight:800;color:white;letter-spacing:0.3px;'>{title}</div>"
+        f"<div style='font-size:10px;font-weight:500;letter-spacing:2px;"
+        f"text-transform:uppercase;color:#5eb8c8;margin-top:3px;'>{subtitle}</div></div>"
+        f"<div style='height:1px;background:rgba(255,255,255,0.08);margin:0 4px 12px 4px;'></div>",
         unsafe_allow_html=True,
     )
 
@@ -369,28 +366,30 @@ def page_header(
     right = ""
     if record_label:
         right = (
-            f'<div style="text-align:right;font-size:11px;color:rgba(255,255,255,0.4);">'
-            f'<b style="color:rgba(255,255,255,0.75);font-size:18px;display:block;">{record_count}</b>'
+            f"<div style='text-align:right;font-size:11px;color:rgba(255,255,255,0.4);'>"
+            f"<b style='color:rgba(255,255,255,0.75);font-size:18px;display:block;'>{record_count}</b>"
             f"{record_label}</div>"
         )
     sub_html = (
-        f'<div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;">{subtitle}</div>'
+        f"<div style='font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;'>{subtitle}</div>"
         if subtitle
         else ""
     )
+    header_style = (
+        "background:#1a2744;border-radius:10px;padding:22px 28px 18px 28px;"
+        "margin-bottom:24px;display:flex;align-items:flex-end;justify-content:space-between;"
+    )
+    eyebrow_style = (
+        "font-size:10px;font-weight:600;letter-spacing:1.6px;"
+        "text-transform:uppercase;color:#5eb8c8;margin-bottom:4px;"
+    )
+    title_style = "font-size:22px;font-weight:700;color:#ffffff;line-height:1.25;"
     st.markdown(
-        f"""<div style="
-            background:#1a2744;border-radius:10px;padding:22px 28px 18px 28px;
-            margin-bottom:24px;display:flex;align-items:flex-end;
-            justify-content:space-between;">
-          <div>
-            <div style="font-size:10px;font-weight:600;letter-spacing:1.6px;
-                        text-transform:uppercase;color:#5eb8c8;margin-bottom:4px;">{eyebrow}</div>
-            <div style="font-size:22px;font-weight:700;color:#ffffff;line-height:1.25;">{title}</div>
-            {sub_html}
-          </div>
-          {right}
-        </div>""",
+        f"<div style='{header_style}'>"
+        f"<div>"
+        f"<div style='{eyebrow_style}'>{eyebrow}</div>"
+        f"<div style='{title_style}'>{title}</div>"
+        f"{sub_html}</div>{right}</div>",
         unsafe_allow_html=True,
     )
 
@@ -414,31 +413,29 @@ def kpi_row(cards: list[dict]) -> None:
     cols = st.columns(len(cards))
     for col, c in zip(cols, cards):
         accent_color = _ACCENT_COLORS.get(c.get("accent", "navy"), "#1a2744")
+        label = str(c.get("label", ""))
+        value = str(c.get("value", ""))
+
         delta_html = ""
-        if c.get("delta"):
-            d = c["delta"]
-            delta_color = (
-                "#1A7049"
-                if d.startswith("+")
-                else ("#C0392B" if d.startswith("-") else "#718096")
-            )
-            delta_html = f'<div style="font-size:11px;font-weight:500;color:{delta_color};margin-top:4px;">{d}</div>'
+        raw_delta = c.get("delta")
+        if raw_delta:
+            d = str(raw_delta)
+            dc = "#1A7049" if d.startswith("+") else ("#C0392B" if d.startswith("-") else "#718096")
+            delta_html = f'<div style="font-size:11px;font-weight:500;color:{dc};margin-top:4px;">{d}</div>'
+
+        card_style = (
+            f"background:white;border:1px solid #E2E8F0;border-top:3px solid {accent_color};"
+            f"border-radius:8px;padding:16px 18px 14px 18px;"
+            f"box-shadow:0 1px 4px rgba(0,0,0,0.05);margin-bottom:16px;"
+        )
 
         with col:
             st.markdown(
-                f"""<div style="
-                    background:white;
-                    border:1px solid #E2E8F0;
-                    border-top:3px solid {accent_color};
-                    border-radius:8px;
-                    padding:16px 18px 14px 18px;
-                    box-shadow:0 1px 4px rgba(0,0,0,0.05);
-                    margin-bottom:16px;
-                ">
-                  <div style="font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:#718096;margin-bottom:6px;">{c["label"]}</div>
-                  <div style="font-size:28px;font-weight:700;color:#1a2744;line-height:1.1;">{c["value"]}</div>
-                  {delta_html}
-                </div>""",
+                f"<div style='{card_style}'>"
+                f"<div style='font-size:10px;font-weight:600;letter-spacing:0.8px;"
+                f"text-transform:uppercase;color:#718096;margin-bottom:6px;'>{label}</div>"
+                f"<div style='font-size:28px;font-weight:700;color:#1a2744;line-height:1.1;'>{value}</div>"
+                f"{delta_html}</div>",
                 unsafe_allow_html=True,
             )
 
