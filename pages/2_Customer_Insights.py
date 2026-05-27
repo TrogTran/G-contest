@@ -134,7 +134,7 @@ def generate_customer_data(n=500, seed=42):
 df_cust = generate_customer_data()
 
 regions = ["All"] + sorted(df_cust["region"].unique().tolist())
-sel_region = st.sidebar.multiselect("Region", regions[1:], default=regions[1:])
+sel_region = st.sidebar.multiselect("Region", regions[1:])
 
 segments = ["All"] + sorted(df_cust["segment"].unique().tolist())
 sel_segment = st.sidebar.selectbox("Segment", segments)
@@ -320,8 +320,8 @@ with col4:
         x=acq_trend["acquisition_month"],
         y=acq_trend["count"],
         marker=dict(
-            color="#1a1a2e",
-            line=dict(color="rgba(255,255,255,0.3)", width=0.5),
+            color="#0a0a1a",
+            line=dict(color="white", width=0.8),
         ),
         hovertemplate="<b>%{x}</b><br>New: %{y:,}<extra></extra>",
         width=0.6,
@@ -329,13 +329,14 @@ with col4:
 
     fig4.update_layout(
         height=400,
-        xaxis=dict(title="", gridcolor="#F1F3F5", tickfont=dict(size=10, color="#212529")),
+        xaxis=dict(title="", gridcolor="#E9ECEF", tickfont=dict(size=10, color="#212529")),
         yaxis=dict(title=dict(text="New Customers", font=dict(size=12, color="#212529")),
-                   gridcolor="#F1F3F5", tickfont=dict(size=11, color="#212529")),
+                   gridcolor="#E9ECEF", tickfont=dict(size=11, color="#212529")),
         margin=dict(l=10, r=20, t=10, b=10),
-        template="plotly_white",
+        template="none",
+        plot_bgcolor="white",
+        paper_bgcolor="white",
         bargap=0.2,
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 

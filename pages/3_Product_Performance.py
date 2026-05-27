@@ -147,7 +147,7 @@ def generate_product_data(n_products=50, seed=42):
 df_prod = generate_product_data()
 
 categories = ["All"] + sorted(df_prod["category"].unique().tolist())
-sel_cat = st.sidebar.multiselect("Category", categories[1:], default=categories[1:])
+sel_cat = st.sidebar.multiselect("Category", categories[1:])
 
 price_min = float(df_prod["price"].min())
 price_max = float(df_prod["price"].max())
