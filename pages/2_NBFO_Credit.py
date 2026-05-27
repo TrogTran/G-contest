@@ -203,7 +203,7 @@ with c1:
             "bargap": 0.04,
         }
     )
-    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False})
+    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
 
 with c2:
     if "product_type" in f.columns:
@@ -233,7 +233,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displaylogo": False}
+            fig2, width='stretch', config={"displayModeBar": False}
         )
     else:
         st.info("Product type data not available.")
@@ -266,7 +266,7 @@ with c3:
             }
         )
         st.plotly_chart(
-            fig3, width='stretch', config={"displaylogo": False}
+            fig3, width='stretch', config={"displayModeBar": False}
         )
     elif "persona" in f.columns:
         chart_wrap("Avg Propensity by Persona")
@@ -294,7 +294,7 @@ with c3:
             }
         )
         st.plotly_chart(
-            fig3, width='stretch', config={"displaylogo": False}
+            fig3, width='stretch', config={"displayModeBar": False}
         )
 
 with c4:
@@ -327,7 +327,7 @@ with c4:
         )
         fig4.update_layout(**{**PLOTLY_LAYOUT, "height": 300})
         st.plotly_chart(
-            fig4, width='stretch', config={"displaylogo": False}
+            fig4, width='stretch', config={"displayModeBar": False}
         )
     else:
         st.info("Outflow trend data not available.")
