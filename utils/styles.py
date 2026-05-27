@@ -254,6 +254,44 @@ _CSS = """
     margin: 18px 0 !important;
   }
 
+  /* ── NAV TAB BAR ──────────────────────────────────────────────────── */
+  .nav-tab-bar {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .nav-tab-bar div[data-testid="column"] {
+    padding: 0 !important;
+    flex: 1;
+  }
+  .nav-tab-bar a[data-testid="stPageLink"] {
+    display: block;
+    text-align: center;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #4A5568 !important;
+    text-decoration: none !important;
+    transition: all 0.15s ease !important;
+    white-space: nowrap;
+  }
+  .nav-tab-bar a[data-testid="stPageLink"]:hover {
+    background: #EBF8FF !important;
+    color: #006B7D !important;
+  }
+  .nav-tab-bar a[aria-current="page"] {
+    background: #1a2744 !important;
+    color: white !important;
+    font-weight: 700 !important;
+  }
+
   /* Column cards (remove auto-padding from Streamlit columns) */
   div[data-testid="column"] {
     padding: 0 8px !important;
