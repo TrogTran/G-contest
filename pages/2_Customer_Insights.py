@@ -314,45 +314,62 @@ with col4:
 
     acq_trend = df_f.groupby("acquisition_month").size().reset_index(name="count")
     acq_trend = acq_trend.sort_values("acquisition_month")
+    acq_trend["rolling_avg"] = acq_trend["count"].rolling(3, min_periods=1).mean()
 
     fig4 = go.Figure()
 
-    fig4.add_trace(go.Bar(
+    fig4.add_trace(go.Scatter(
         x=acq_trend["acquisition_month"],
         y=acq_trend["count"],
-        marker=dict(
-            color="#0D6EFD",
-            line=dict(color="rgba(255,255,255,0.6)", width=1),
-            opacity=0.95
-        ),
+        mode="lines+markers",
+        name="New Customers",
+        line=dict(color="#0D6EFD", width=2.5, shape="spline"),
+        marker=dict(color="#0D6EFD", size=6, line=dict(color="white", width=1.5)),
+        fill="tozeroy",
+        fillcolor="rgba(13,110,253,0.12)",
         hovertemplate="<b>%{x}</b><br>New Customers: %{y:,}<extra></extra>",
-        width=0.65,
+    ))
+
+    fig4.add_trace(go.Scatter(
+        x=acq_trend["acquisition_month"],
+        y=acq_trend["rolling_avg"],
+        mode="lines",
+        name="3-Month Avg",
+        line=dict(color="#DC3545", width=2, dash="dash"),
+        hovertemplate="<b>%{x}</b><br>3-Month Avg: %{y:.0f}<extra></extra>",
     ))
 
     fig4.update_layout(
         height=400,
         xaxis=dict(
             title="",
-            gridcolor="#E9ECEF",
+            gridcolor="#F1F3F5",
             tickfont=dict(size=11, color="#495057"),
-            tickangle=-45
+            tickangle=-45,
         ),
         yaxis=dict(
             title=dict(text="New Customers", font=dict(size=12, color="#212529")),
-            gridcolor="#E9ECEF",
+            gridcolor="#F1F3F5",
             tickfont=dict(size=11, color="#495057"),
-            zerolinecolor="#DEE2E6"
+            zerolinecolor="#DEE2E6",
         ),
         margin=dict(l=10, r=20, t=10, b=40),
         template="plotly_white",
         plot_bgcolor="rgba(255,255,255,0.95)",
         paper_bgcolor="rgba(0,0,0,0)",
-        bargap=0.15,
+        hovermode="x unified",
         hoverlabel=dict(
             bgcolor="white",
             font_size=13,
             font_color="#212529",
-            bordercolor="#E9ECEF"
+            bordercolor="#E9ECEF",
+        ),
+        legend=dict(
+            orientation="h",
+            y=1.1,
+            x=0.5,
+            xanchor="center",
+            font=dict(size=11, color="#212529"),
         ),
     )
 
