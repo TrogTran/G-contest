@@ -42,24 +42,36 @@ st.markdown("""
     }
     section[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.1); margin: 16px 0; }
 
-    /* ─── NAVIGATION LINKS (multi-selector) ─── */
+    /* ─── NAVIGATION LINKS ─── */
     a[data-testid="stPageLink"],
-    [data-testid="stPageLink"],
-    [role="link"],
-    section[data-testid="stSidebar"] a,
-    [data-testid="stSidebar"] a {
-        color: rgba(255,255,255,0.92) !important;
+    a[href*="overview"],
+    a[href*="Sales"],
+    a[href*="Customer"],
+    a[href*="Product"],
+    [data-testid="stSidebar"] a,
+    [class*="stSidebarNav"] a,
+    section[data-testid="stSidebar"] nav a,
+    a[data-testid*="PageLink"],
+    [data-testid*="PageLink"] {
+        color: rgb(255,255,255) !important;
         font-weight: 500 !important;
         text-decoration: none !important;
+        background-color: transparent !important;
     }
     a[data-testid="stPageLink"]:hover,
-    [data-testid="stPageLink"]:hover,
-    [role="link"]:hover,
-    section[data-testid="stSidebar"] a:hover {
+    a[href*="overview"]:hover,
+    a[href*="Sales"]:hover,
+    a[href*="Customer"]:hover,
+    a[href*="Product"]:hover,
+    [data-testid="stSidebar"] a:hover,
+    section[data-testid="stSidebar"] nav a:hover {
         color: #4facfe !important;
     }
     a[data-testid="stPageLink"][aria-current="page"],
-    [data-testid="stPageLink"][aria-current="page"],
+    a[href*="overview"][aria-current="page"],
+    a[href*="Sales"][aria-current="page"],
+    a[href*="Customer"][aria-current="page"],
+    a[href*="Product"][aria-current="page"],
     [aria-current="page"],
     section[data-testid="stSidebar"] a[aria-current="page"] {
         color: #4facfe !important;
