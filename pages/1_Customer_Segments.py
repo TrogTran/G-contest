@@ -60,7 +60,7 @@ def load_data():
 
 df = load_data()
 
-# ── SIDEBAR ────────────────────────────────────────────────────────────────
+# â”€â”€ SIDEBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 st.sidebar.markdown("### Filters")
 personas = sorted(df["persona"].dropna().unique().tolist())
 sel_persona = st.sidebar.multiselect("Persona", personas, default=personas)
@@ -71,7 +71,7 @@ sel_cluster = st.sidebar.multiselect(
 am_min, am_max = int(df["active_months"].min()), int(df["active_months"].max())
 sel_months = st.sidebar.slider("Active Months", am_min, am_max, (am_min, am_max))
 
-# ── FILTER ─────────────────────────────────────────────────────────────────
+# â”€â”€ FILTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 f = df.copy()
 if sel_persona:
     f = f[f["persona"].isin(sel_persona)]
@@ -79,26 +79,26 @@ if sel_cluster:
     f = f[f["cluster"].isin(sel_cluster)]
 f = f[(f["active_months"] >= sel_months[0]) & (f["active_months"] <= sel_months[1])]
 
-# ── HEADER ─────────────────────────────────────────────────────────────────
+# â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 page_nav = st.columns(4)
 with page_nav[0]:
-    st.page_link("pages/0_Overview.py", label="Overview", icon="📊")
+    st.page_link("pages/0_Overview.py", label="Overview")
 with page_nav[1]:
-    st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥", disabled=True)
+    st.page_link("pages/1_Customer_Segments.py", label="Segments", disabled=True)
 with page_nav[2]:
-    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit", icon="💳")
+    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit")
 with page_nav[3]:
-    st.page_link("pages/3_Security_Alerts.py", label="Security", icon="🔒")
+    st.page_link("pages/3_Security_Alerts.py", label="Security")
 
 page_header(
-    eyebrow="Customer Intelligence · Segmentation",
+    eyebrow="Customer Intelligence Â· Segmentation",
     title="Customer Segment Analysis",
     subtitle="Behavioral clusters, engagement metrics, and risk profiling by persona",
     record_label="customers in view",
     record_count=f"{len(f):,} / {len(df):,}",
 )
 
-# ── KPIs ───────────────────────────────────────────────────────────────────
+# â”€â”€ KPIs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 avg_trans = f["total_trans"].mean() if "total_trans" in f.columns else 0
 avg_months = f["active_months"].mean()
 avg_outflow = (
@@ -133,7 +133,7 @@ kpi_row(
     ]
 )
 
-# ── ROW 1: Segment size + Outflow ─────────────────────────────────────────
+# â”€â”€ ROW 1: Segment size + Outflow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 section_title("Segment Profile")
 c1, c2 = st.columns(2)
 
@@ -164,7 +164,7 @@ with c1:
 
 with c2:
     chart_wrap(
-        "Average Annual Outflow by Persona", "VND millions · proxy for customer value"
+        "Average Annual Outflow by Persona", "VND millions Â· proxy for customer value"
     )
     if "total_annual_outflow" in f.columns:
         out = f.groupby("persona")["total_annual_outflow"].mean().div(1e6).reset_index()
@@ -198,7 +198,7 @@ with c2:
 
 st.divider()
 
-# ── ROW 2: Engagement ──────────────────────────────────────────────────────
+# â”€â”€ ROW 2: Engagement â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 section_title("Engagement Metrics")
 c3, c4 = st.columns(2)
 
@@ -259,7 +259,7 @@ with c4:
 
 st.divider()
 
-# ── ROW 3: Alert rate + Credit propensity ─────────────────────────────────
+# â”€â”€ ROW 3: Alert rate + Credit propensity â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 section_title("Risk & Credit Overlay")
 c5, c6 = st.columns(2)
 
@@ -303,7 +303,7 @@ with c5:
 with c6:
     if "credit_propensity" in f.columns:
         chart_wrap(
-            "Credit Propensity by Persona", "Avg score — higher = stronger credit fit"
+            "Credit Propensity by Persona", "Avg score â€” higher = stronger credit fit"
         )
         cp = f.groupby("persona")["credit_propensity"].mean().reset_index()
         cp.columns = ["persona", "avg_propensity"]
@@ -335,7 +335,7 @@ with c6:
     else:
         st.info("credit_propensity not available.")
 
-# ── CLUSTER SUMMARY TABLE ──────────────────────────────────────────────────
+# â”€â”€ CLUSTER SUMMARY TABLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 st.divider()
 section_title("Cluster Summary", pill="by segment")
 

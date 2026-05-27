@@ -80,13 +80,13 @@ if sel_persona != "All" and "persona" in f.columns:
 # ── HEADER ─────────────────────────────────────────────────────────────────
 page_nav = st.columns(4)
 with page_nav[0]:
-    st.page_link("pages/0_Overview.py", label="Overview", icon="📊", disabled=True)
+    st.page_link("pages/0_Overview.py", label="Overview", disabled=True)
 with page_nav[1]:
-    st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥")
+    st.page_link("pages/1_Customer_Segments.py", label="Segments")
 with page_nav[2]:
-    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit", icon="💳")
+    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit")
 with page_nav[3]:
-    st.page_link("pages/3_Security_Alerts.py", label="Security", icon="🔒")
+    st.page_link("pages/3_Security_Alerts.py", label="Security")
 
 page_header(
     eyebrow="Customer Intelligence · Overview",
