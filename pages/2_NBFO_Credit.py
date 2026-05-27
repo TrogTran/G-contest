@@ -106,6 +106,16 @@ if sel_persona != "All" and "persona" in f.columns:
     f = f[f["persona"] == sel_persona]
 
 # ── HEADER ─────────────────────────────────────────────────────────────────
+page_nav = st.columns(4)
+with page_nav[0]:
+    st.page_link("app.py", label="Overview", icon="📊")
+with page_nav[1]:
+    st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥")
+with page_nav[2]:
+    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit", icon="💳", disabled=True)
+with page_nav[3]:
+    st.page_link("pages/3_Security_Alerts.py", label="Security", icon="🔒")
+
 page_header(
     eyebrow="Customer Intelligence · Next Best Financial Offer",
     title="NBFO & Credit Targeting",
@@ -193,7 +203,7 @@ with c1:
             "bargap": 0.04,
         }
     )
-    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c2:
     if "product_type" in f.columns:
@@ -223,7 +233,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displayModeBar": False}
+            fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         st.info("Product type data not available.")
@@ -256,7 +266,7 @@ with c3:
             }
         )
         st.plotly_chart(
-            fig3, width='stretch', config={"displayModeBar": False}
+            fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     elif "persona" in f.columns:
         chart_wrap("Avg Propensity by Persona")
@@ -284,7 +294,7 @@ with c3:
             }
         )
         st.plotly_chart(
-            fig3, width='stretch', config={"displayModeBar": False}
+            fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
 
 with c4:
@@ -317,7 +327,7 @@ with c4:
         )
         fig4.update_layout(**{**PLOTLY_LAYOUT, "height": 300})
         st.plotly_chart(
-            fig4, width='stretch', config={"displayModeBar": False}
+            fig4, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         st.info("Outflow trend data not available.")

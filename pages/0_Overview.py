@@ -78,6 +78,16 @@ if sel_persona != "All" and "persona" in f.columns:
     f = f[f["persona"] == sel_persona]
 
 # ── HEADER ─────────────────────────────────────────────────────────────────
+page_nav = st.columns(4)
+with page_nav[0]:
+    st.page_link("app.py", label="Overview", icon="📊", disabled=True)
+with page_nav[1]:
+    st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥")
+with page_nav[2]:
+    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit", icon="💳")
+with page_nav[3]:
+    st.page_link("pages/3_Security_Alerts.py", label="Security", icon="🔒")
+
 page_header(
     eyebrow="Customer Intelligence · Overview",
     title="Executive Dashboard",
@@ -162,7 +172,7 @@ with c1:
             "margin": dict(t=20, b=20, l=20, r=20),
         }
     )
-    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c2:
     if "persona" in f.columns:
@@ -193,7 +203,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displayModeBar": False}
+            fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         chart_wrap("Rule Flags Distribution")
@@ -213,7 +223,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displayModeBar": False}
+            fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
 
 st.divider()
@@ -243,7 +253,7 @@ with c3:
             "bargap": 0.04,
         }
     )
-    st.plotly_chart(fig3, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c4:
     chart_wrap(
@@ -270,7 +280,7 @@ with c4:
             "yaxis_title": "Burst Ratio",
         }
     )
-    st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig4, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 # ── ROW 3: Credit Propensity (if available) ────────────────────────────────
 if "credit_propensity" in f.columns and "persona" in f.columns:
@@ -309,7 +319,7 @@ if "credit_propensity" in f.columns and "persona" in f.columns:
             }
         )
         st.plotly_chart(
-            fig5, width='stretch', config={"displayModeBar": False}
+            fig5, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
 
     with c6:
@@ -333,7 +343,7 @@ if "credit_propensity" in f.columns and "persona" in f.columns:
             }
         )
         st.plotly_chart(
-            fig6, width='stretch', config={"displayModeBar": False}
+            fig6, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
 
 # ── TOP CUSTOMERS TABLE ────────────────────────────────────────────────────

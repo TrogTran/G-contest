@@ -80,6 +80,16 @@ if sel_cluster:
 f = f[(f["active_months"] >= sel_months[0]) & (f["active_months"] <= sel_months[1])]
 
 # ── HEADER ─────────────────────────────────────────────────────────────────
+page_nav = st.columns(4)
+with page_nav[0]:
+    st.page_link("app.py", label="Overview", icon="📊")
+with page_nav[1]:
+    st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥", disabled=True)
+with page_nav[2]:
+    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit", icon="💳")
+with page_nav[3]:
+    st.page_link("pages/3_Security_Alerts.py", label="Security", icon="🔒")
+
 page_header(
     eyebrow="Customer Intelligence · Segmentation",
     title="Customer Segment Analysis",
@@ -150,7 +160,7 @@ with c1:
             "yaxis_title": "",
         }
     )
-    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c2:
     chart_wrap(
@@ -181,7 +191,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displayModeBar": False}
+            fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         st.info("total_annual_outflow column not available.")
@@ -213,7 +223,7 @@ with c3:
             }
         )
         st.plotly_chart(
-            fig3, width='stretch', config={"displayModeBar": False}
+            fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         st.info("login_count not available.")
@@ -242,7 +252,7 @@ with c4:
             }
         )
         st.plotly_chart(
-            fig4, width='stretch', config={"displayModeBar": False}
+            fig4, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         st.info("total_trans not available.")
@@ -285,7 +295,7 @@ with c5:
             }
         )
         st.plotly_chart(
-            fig5, width='stretch', config={"displayModeBar": False}
+            fig5, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         st.info("Priority data not available.")
@@ -320,7 +330,7 @@ with c6:
             }
         )
         st.plotly_chart(
-            fig6, width='stretch', config={"displayModeBar": False}
+            fig6, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         st.info("credit_propensity not available.")

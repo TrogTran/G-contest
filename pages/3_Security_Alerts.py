@@ -81,6 +81,16 @@ if not show_normal:
     f = f[f["priority"] != "Normal"]
 
 # ── HEADER ─────────────────────────────────────────────────────────────────
+page_nav = st.columns(4)
+with page_nav[0]:
+    st.page_link("app.py", label="Overview", icon="📊")
+with page_nav[1]:
+    st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥")
+with page_nav[2]:
+    st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit", icon="💳")
+with page_nav[3]:
+    st.page_link("pages/3_Security_Alerts.py", label="Security", icon="🔒", disabled=True)
+
 page_header(
     eyebrow="Customer Intelligence · Security & Fraud Risk",
     title="Security Alert Investigation",
@@ -159,7 +169,7 @@ with c1:
             "margin": dict(t=20, b=20, l=20, r=20),
         }
     )
-    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c2:
     chart_wrap(
@@ -190,7 +200,7 @@ with c2:
             "yaxis_title": "Customers",
         }
     )
-    st.plotly_chart(fig2, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 st.divider()
 
@@ -218,7 +228,7 @@ with c3:
             "bargap": 0.03,
         }
     )
-    st.plotly_chart(fig3, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c4:
     chart_wrap("Burst Ratio vs Anomaly Score", "Sample ≤ 3,000 · size = rule flags")
@@ -241,7 +251,7 @@ with c4:
             "yaxis_title": "Burst Ratio",
         }
     )
-    st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig4, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 st.divider()
 
@@ -269,7 +279,7 @@ with c5:
             "yaxis_title": "Max Single Amt (log VND)",
         }
     )
-    st.plotly_chart(fig5, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig5, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c6:
     if "persona" in flagged.columns:
@@ -292,7 +302,7 @@ with c6:
             }
         )
         st.plotly_chart(
-            fig6, width='stretch', config={"displayModeBar": False}
+            fig6, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
     else:
         chart_wrap("Off-Hours Rate vs Anomaly Score")
@@ -316,7 +326,7 @@ with c6:
             }
         )
         st.plotly_chart(
-            fig6, width='stretch', config={"displayModeBar": False}
+            fig6, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
 
 # ── DETAIL TABLE ───────────────────────────────────────────────────────────
@@ -433,4 +443,4 @@ else:
         paper_bgcolor="white",
         font=dict(family="Inter, Segoe UI, system-ui"),
     )
-    st.plotly_chart(fig_r, width='stretch', config={"displayModeBar": False})
+    st.plotly_chart(fig_r, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
