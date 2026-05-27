@@ -160,7 +160,7 @@ with c1:
             "yaxis_title": "",
         }
     )
-    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
+    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False})
 
 with c2:
     chart_wrap(
@@ -191,7 +191,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig2, width='stretch', config={"displaylogo": False}
         )
     else:
         st.info("total_annual_outflow column not available.")
@@ -223,7 +223,7 @@ with c3:
             }
         )
         st.plotly_chart(
-            fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig3, width='stretch', config={"displaylogo": False}
         )
     else:
         st.info("login_count not available.")
@@ -252,7 +252,7 @@ with c4:
             }
         )
         st.plotly_chart(
-            fig4, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig4, width='stretch', config={"displaylogo": False}
         )
     else:
         st.info("total_trans not available.")
@@ -295,7 +295,7 @@ with c5:
             }
         )
         st.plotly_chart(
-            fig5, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig5, width='stretch', config={"displaylogo": False}
         )
     else:
         st.info("Priority data not available.")
@@ -330,7 +330,7 @@ with c6:
             }
         )
         st.plotly_chart(
-            fig6, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig6, width='stretch', config={"displaylogo": False}
         )
     else:
         st.info("credit_propensity not available.")

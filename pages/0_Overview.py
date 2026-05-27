@@ -172,7 +172,7 @@ with c1:
             "margin": dict(t=20, b=20, l=20, r=20),
         }
     )
-    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
+    st.plotly_chart(fig1, width='stretch', config={"displaylogo": False})
 
 with c2:
     if "persona" in f.columns:
@@ -203,7 +203,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig2, width='stretch', config={"displaylogo": False}
         )
     else:
         chart_wrap("Rule Flags Distribution")
@@ -223,7 +223,7 @@ with c2:
             }
         )
         st.plotly_chart(
-            fig2, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig2, width='stretch', config={"displaylogo": False}
         )
 
 st.divider()
@@ -253,7 +253,7 @@ with c3:
             "bargap": 0.04,
         }
     )
-    st.plotly_chart(fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
+    st.plotly_chart(fig3, width='stretch', config={"displaylogo": False})
 
 with c4:
     chart_wrap(
@@ -280,7 +280,7 @@ with c4:
             "yaxis_title": "Burst Ratio",
         }
     )
-    st.plotly_chart(fig4, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
+    st.plotly_chart(fig4, width='stretch', config={"displaylogo": False})
 
 # ── ROW 3: Credit Propensity (if available) ────────────────────────────────
 if "credit_propensity" in f.columns and "persona" in f.columns:
@@ -319,7 +319,7 @@ if "credit_propensity" in f.columns and "persona" in f.columns:
             }
         )
         st.plotly_chart(
-            fig5, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig5, width='stretch', config={"displaylogo": False}
         )
 
     with c6:
@@ -343,7 +343,7 @@ if "credit_propensity" in f.columns and "persona" in f.columns:
             }
         )
         st.plotly_chart(
-            fig6, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
+            fig6, width='stretch', config={"displaylogo": False}
         )
 
 # ── TOP CUSTOMERS TABLE ────────────────────────────────────────────────────
