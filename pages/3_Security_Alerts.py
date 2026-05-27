@@ -48,9 +48,8 @@ def load_data():
 
 
 df = load_data()
-flagged = df[df["anomaly_score"] > 0].copy()
 
-# â”€â”€ SIDEBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── SIDEBAR ────────────────────────────────────────────────────────────────
 st.sidebar.markdown("### Filters")
 priority_opts = ["All"] + ["Critical", "Alert", "Normal"]
 sel_priority = st.sidebar.selectbox("Priority", priority_opts)
@@ -68,7 +67,7 @@ else:
     sel_persona = "All"
 show_normal = st.sidebar.checkbox("Include Normal in detail table", value=False)
 
-# â”€â”€ FILTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── FILTER ─────────────────────────────────────────────────────────────────
 f = df.copy()
 if sel_priority != "All":
     f = f[f["priority"] == sel_priority]
@@ -80,7 +79,7 @@ if sel_persona != "All" and "persona" in f.columns:
 if not show_normal:
     f = f[f["priority"] != "Normal"]
 
-# â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── HEADER ─────────────────────────────────────────────────────────────────
 page_nav = st.columns(4)
 with page_nav[0]:
     st.page_link("pages/0_Overview.py", label="Overview")
@@ -92,29 +91,29 @@ with page_nav[3]:
     st.page_link("pages/3_Security_Alerts.py", label="Security", disabled=True)
 
 page_header(
-    eyebrow="Customer Intelligence Â· Security & Fraud Risk",
+    eyebrow="Customer Intelligence · Security & Fraud Risk",
     title="Security Alert Investigation",
     subtitle="Anomaly signals, transaction patterns, and high-risk account deep-dive",
-    record_label="flagged records in view",
+    record_label="f records in view",
     record_count=f"{len(f):,} / {len(df):,}",
 )
 
-# â”€â”€ KPIs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-total_flagged = int((df["priority"] != "Normal").sum())
-critical_n = int((df["priority"] == "Critical").sum())
-alert_n = int((df["priority"] == "Alert").sum())
-avg_score_all = flagged["anomaly_score"].mean() if len(flagged) else 0
-max_score = flagged["anomaly_score"].max() if len(flagged) else 0
-avg_burst = flagged["burst_ratio"].mean() if len(flagged) else 0
+# ── KPIs ───────────────────────────────────────────────────────────────────
+total_f = int((f["priority"] != "Normal").sum())
+critical_n = int((f["priority"] == "Critical").sum())
+alert_n = int((f["priority"] == "Alert").sum())
+avg_score_all = f["anomaly_score"].mean() if len(f) else 0
+max_score = f["anomaly_score"].max() if len(f) else 0
+avg_burst = f["burst_ratio"].mean() if len(f) else 0
 
 kpi_row(
     [
-        {"label": "Total Flagged", "value": f"{total_flagged:,}", "accent": "navy"},
+        {"label": "Total Flagged", "value": f"{total_f:,}", "accent": "navy"},
         {
             "label": "Critical",
             "value": f"{critical_n:,}",
             "accent": "red",
-            "delta": f"{critical_n / len(df) * 100:.2f}% of all customers",
+            "delta": f"{critical_n / len(f) * 100:.2f}% of filtered",
         },
         {"label": "Alert", "value": f"{alert_n:,}", "accent": "amber"},
         {
@@ -129,22 +128,22 @@ kpi_row(
 
 if critical_n >= 50:
     warn(
-        f"<b>{critical_n} Critical accounts</b> detected. Immediate investigation required â€” "
+        f"<b>{critical_n} Critical accounts</b> detected. Immediate investigation required — "
         f"these customers show anomaly scores above the critical threshold."
     )
 else:
     insight(
-        f"<b>{critical_n} Critical</b> and <b>{alert_n} Alert</b> accounts flagged. "
+        f"<b>{critical_n} Critical</b> and <b>{alert_n} Alert</b> accounts f. "
         f"Review Critical queue first; max anomaly score is {max_score:.4f}."
     )
 
-# â”€â”€ ROW 1: Priority + Rule Flags â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── ROW 1: Priority + Rule Flags ───────────────────────────────────────────
 section_title("Alert Distribution")
 c1, c2 = st.columns(2)
 
 with c1:
-    chart_wrap("Priority Distribution â€” All Customers")
-    pri = df["priority"].value_counts().reset_index()
+    chart_wrap("Priority Distribution — All Customers")
+    pri = f["priority"].value_counts().reset_index()
     pri.columns = ["priority", "count"]
     fig1 = px.pie(
         pri,
@@ -173,10 +172,10 @@ with c1:
 
 with c2:
     chart_wrap(
-        "Rule Flags Breakdown â€” Flagged Customers Only",
+        "Rule Flags Breakdown — Flagged Customers Only",
         "Number of triggered rule conditions",
     )
-    rf = flagged["rule_flags"].value_counts().sort_index().reset_index()
+    rf = f["rule_flags"].value_counts().sort_index().reset_index()
     rf.columns = ["rule_flags", "count"]
     rf["label"] = rf["rule_flags"].astype(str) + " flag(s)"
     colors = [C_AMBER if v < 3 else C_RED for v in rf["rule_flags"]]
@@ -204,14 +203,14 @@ with c2:
 
 st.divider()
 
-# â”€â”€ ROW 2: Score dist + Burst scatter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── ROW 2: Score dist + Burst scatter ─────────────────────────────────────
 section_title("Risk Signal Analysis")
 c3, c4 = st.columns(2)
 
 with c3:
-    chart_wrap("Anomaly Score Distribution", "Flagged customers Â· colored by priority")
+    chart_wrap("Anomaly Score Distribution", "Flagged customers · colored by priority")
     fig3 = px.histogram(
-        flagged,
+        f,
         x="anomaly_score",
         color="priority",
         nbins=50,
@@ -231,8 +230,8 @@ with c3:
     st.plotly_chart(fig3, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c4:
-    chart_wrap("Burst Ratio vs Anomaly Score", "Sample â‰¤ 3,000 Â· size = rule flags")
-    sample = flagged.sample(min(3000, len(flagged)), random_state=42)
+    chart_wrap("Burst Ratio vs Anomaly Score", "Sample ≤ 3,000 · size = rule flags")
+    sample = f.sample(min(3000, len(f)), random_state=42)
     fig4 = px.scatter(
         sample,
         x="anomaly_score",
@@ -255,14 +254,14 @@ with c4:
 
 st.divider()
 
-# â”€â”€ ROW 3: Transaction amounts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── ROW 3: Transaction amounts ─────────────────────────────────────────────
 section_title("Transaction Amount Profile")
 c5, c6 = st.columns(2)
 
 with c5:
-    chart_wrap("Max Single Amount by Priority", "Log scale Â· VND")
+    chart_wrap("Max Single Amount by Priority", "Log scale · VND")
     fig5 = px.box(
-        flagged,
+        f,
         x="priority",
         y="max_single_amount",
         color="priority",
@@ -282,9 +281,9 @@ with c5:
     st.plotly_chart(fig5, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]})
 
 with c6:
-    if "persona" in flagged.columns:
+    if "persona" in f.columns:
         chart_wrap("Alerts by Persona", "Stacked Alert + Critical counts")
-        ap = flagged.groupby(["persona", "priority"]).size().reset_index(name="count")
+        ap = f.groupby(["persona", "priority"]).size().reset_index(name="count")
         fig6 = px.bar(
             ap,
             x="persona",
@@ -306,8 +305,8 @@ with c6:
         )
     else:
         chart_wrap("Off-Hours Rate vs Anomaly Score")
-        s2 = flagged[flagged["offhours_trans_rate"] > 0].sample(
-            min(2000, int((flagged["offhours_trans_rate"] > 0).sum())), random_state=1
+        s2 = f[f["offhours_trans_rate"] > 0].sample(
+            min(2000, int((f["offhours_trans_rate"] > 0).sum())), random_state=1
         )
         fig6 = px.scatter(
             s2,
@@ -329,7 +328,7 @@ with c6:
             fig6, width='stretch', config={"displaylogo": False, "modeBarButtonsToRemove": ["sendDataToCloud"], "modeBarButtonsToAdd": ["drawline", "eraseshape"]}
         )
 
-# â”€â”€ DETAIL TABLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── DETAIL TABLE ───────────────────────────────────────────────────────────
 st.divider()
 section_title("Alert Detail Table", pill=f"{len(f):,} records")
 
@@ -386,11 +385,11 @@ st.dataframe(
 csv = disp.to_csv(index=False).encode("utf-8")
 st.download_button("Download Alert List (CSV)", csv, "security_alerts.csv", "text/csv")
 
-# â”€â”€ CRITICAL DEEP-DIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── CRITICAL DEEP-DIVE ─────────────────────────────────────────────────────
 st.divider()
 section_title("Critical Customer Deep-Dive", pill="Interactive")
 
-crit = df[df["priority"] == "Critical"].sort_values("anomaly_score", ascending=False)
+crit = f[f["priority"] == "Critical"].sort_values("anomaly_score", ascending=False)
 if len(crit) == 0:
     st.info("No critical customers match current filters.")
 else:
@@ -439,7 +438,7 @@ else:
         showlegend=False,
         height=340,
         margin=dict(t=40, b=40, l=60, r=60),
-        title=dict(text=f"Risk Profile â€” Customer #{sel_cust}", font_size=12, x=0.5),
+        title=dict(text=f"Risk Profile — Customer #{sel_cust}", font_size=12, x=0.5),
         paper_bgcolor="white",
         font=dict(family="Inter, Segoe UI, system-ui"),
     )

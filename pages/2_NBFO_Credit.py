@@ -56,9 +56,9 @@ def load_data():
     def extract_product(msg):
         if not isinstance(msg, str):
             return "Other"
-        if re.search(r"tháº» tÃ­n dá»¥ng|credit card", msg, re.I):
+        if re.search(r"thẻ tín dụng|credit card", msg, re.I):
             return "Credit Card"
-        if re.search(r"vay tiÃªu dÃ¹ng|consumer loan|vay", msg, re.I):
+        if re.search(r"vay tiêu dùng|consumer loan|vay", msg, re.I):
             return "Consumer Loan"
         return "Other"
 
@@ -70,7 +70,7 @@ def load_data():
 
 df = load_data()
 
-# â”€â”€ SIDEBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── SIDEBAR ────────────────────────────────────────────────────────────────
 st.sidebar.markdown("### Filters")
 sel_hungry = st.sidebar.radio(
     "Credit Status", ["All", "Credit Hungry Only", "Non-Hungry"], index=0
@@ -93,7 +93,7 @@ if "persona" in df.columns:
 else:
     sel_persona = "All"
 
-# â”€â”€ FILTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── FILTER ─────────────────────────────────────────────────────────────────
 f = df.copy()
 if sel_hungry == "Credit Hungry Only":
     f = f[f["credit_hungry"] == 1]
@@ -105,7 +105,7 @@ if sel_pt != "All" and "product_type" in f.columns:
 if sel_persona != "All" and "persona" in f.columns:
     f = f[f["persona"] == sel_persona]
 
-# â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── HEADER ─────────────────────────────────────────────────────────────────
 page_nav = st.columns(4)
 with page_nav[0]:
     st.page_link("pages/0_Overview.py", label="Overview")
@@ -117,14 +117,14 @@ with page_nav[3]:
     st.page_link("pages/3_Security_Alerts.py", label="Security")
 
 page_header(
-    eyebrow="Customer Intelligence Â· Next Best Financial Offer",
+    eyebrow="Customer Intelligence · Next Best Financial Offer",
     title="NBFO & Credit Targeting",
     subtitle="Propensity scoring, product mix, and credit opportunity prioritization",
     record_label="customers in view",
     record_count=f"{len(f):,} / {len(df):,}",
 )
 
-# â”€â”€ KPIs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── KPIs ───────────────────────────────────────────────────────────────────
 targeted_n = len(f)
 hungry_n = int(f["credit_hungry"].sum())
 avg_prop = f["credit_propensity"].mean()
@@ -151,7 +151,7 @@ kpi_row(
             "accent": "amber",
         },
         {
-            "label": "High Propensity â‰¥ 0.8",
+            "label": "High Propensity ≥ 0.8",
             "value": f"{high_prop_n:,}",
             "accent": "green",
         },
@@ -166,12 +166,12 @@ kpi_row(
 
 if high_prop_n > 0:
     insight(
-        f"<b>{high_prop_n:,} customers</b> hold propensity â‰¥ 0.8 â€” prime candidates for "
+        f"<b>{high_prop_n:,} customers</b> hold propensity ≥ 0.8 — prime candidates for "
         f"immediate outreach. Of these, {int((f[f['credit_propensity'] >= 0.8]['credit_hungry'] == 1).sum()):,} "
         f"are also classified as Credit Hungry."
     )
 
-# â”€â”€ ROW 1: Propensity dist + Product mix â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── ROW 1: Propensity dist + Product mix ───────────────────────────────────
 section_title("Propensity & Product Analysis")
 c1, c2 = st.columns(2)
 
@@ -240,7 +240,7 @@ with c2:
 
 st.divider()
 
-# â”€â”€ ROW 2: NBFO by persona + Outflow vs propensity â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── ROW 2: NBFO by persona + Outflow vs propensity ────────────────────────
 section_title("Persona-Level Opportunity")
 c3, c4 = st.columns(2)
 
@@ -301,7 +301,7 @@ with c4:
     if "total_annual_outflow" in f.columns:
         chart_wrap(
             "Outflow Trend vs Propensity",
-            "Slope = growth direction Â· size = propensity",
+            "Slope = growth direction · size = propensity",
         )
         sample = f.sample(min(2000, len(f)), random_state=42)
         color_col = "persona" if "persona" in sample.columns else None
@@ -332,10 +332,10 @@ with c4:
     else:
         st.info("Outflow trend data not available.")
 
-# â”€â”€ TOP TARGETS TABLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── TOP TARGETS TABLE ──────────────────────────────────────────────────────
 st.divider()
 section_title(
-    "Priority Target List", pill=f"Top {min(30, len(f))} Â· sorted by propensity"
+    "Priority Target List", pill=f"Top {min(30, len(f))} · sorted by propensity"
 )
 
 show_cols = ["CUSTOMER_NUMBER", "credit_propensity", "credit_hungry", "ir_query_count"]
