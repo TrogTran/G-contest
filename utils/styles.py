@@ -259,24 +259,20 @@ _CSS = """
     background: white;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 8px 12px;
+    padding: 6px 8px;
     margin-bottom: 20px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    gap: 6px;
-    align-items: center;
-    justify-content: space-evenly !important;
   }
   section[data-testid="stMain"] div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="column"] {
     padding: 0 !important;
     flex: 1 1 0% !important;
-    width: auto !important;
-    text-align: center !important;
     min-width: 0 !important;
   }
   section[data-testid="stMain"] div[data-testid="stHorizontalBlock"]:first-of-type a[data-testid="stPageLink"] {
-    display: block;
-    text-align: center;
-    padding: 8px 12px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 10px !important;
     border-radius: 8px !important;
     font-size: 13px !important;
     font-weight: 500 !important;
@@ -284,6 +280,7 @@ _CSS = """
     text-decoration: none !important;
     transition: all 0.15s ease !important;
     white-space: nowrap;
+    line-height: 1.3;
   }
   section[data-testid="stMain"] div[data-testid="stHorizontalBlock"]:first-of-type a[data-testid="stPageLink"]:hover {
     background: #EBF8FF !important;
