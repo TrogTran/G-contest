@@ -82,7 +82,7 @@ f = f[(f["active_months"] >= sel_months[0]) & (f["active_months"] <= sel_months[
 # ── HEADER ─────────────────────────────────────────────────────────────────
 page_nav = st.columns(4)
 with page_nav[0]:
-    st.page_link("app.py", label="Overview", icon="📊")
+    st.page_link("pages/0_Overview.py", label="Overview", icon="📊")
 with page_nav[1]:
     st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥", disabled=True)
 with page_nav[2]:

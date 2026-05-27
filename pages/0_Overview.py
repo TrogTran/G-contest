@@ -80,7 +80,7 @@ if sel_persona != "All" and "persona" in f.columns:
 # ── HEADER ─────────────────────────────────────────────────────────────────
 page_nav = st.columns(4)
 with page_nav[0]:
-    st.page_link("app.py", label="Overview", icon="📊", disabled=True)
+    st.page_link("pages/0_Overview.py", label="Overview", icon="📊", disabled=True)
 with page_nav[1]:
     st.page_link("pages/1_Customer_Segments.py", label="Segments", icon="👥")
 with page_nav[2]:
