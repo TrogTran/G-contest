@@ -269,6 +269,7 @@ _CSS = """
   section[data-testid="stMain"] div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="column"] {
     padding: 0 !important;
     flex: 1 1 0% !important;
+    width: auto !important;
     text-align: center !important;
     min-width: 0 !important;
   }
