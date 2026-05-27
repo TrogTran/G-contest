@@ -21,7 +21,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 
-st.set_page_config(page_title="Customer Intelligence Dashboard", page_icon=":bar_chart:",
+st.set_page_config(page_title="Customer Intelligence Dashboard",
                    layout="wide", initial_sidebar_state="expanded")
 
 # ──────────────────────────────────────────────────
@@ -32,6 +32,11 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     * { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important; }
+    .material-icons, .material-symbols-outlined,
+    span[data-testid="stIconMaterial"] {
+        font-family: 'Material Icons', 'Material Icons Outlined', 'Material Symbols Outlined' !important;
+        font-size: inherit !important;
+    }
     .stExpander details summary span[data-testid="stIconMaterial"] {
         display: none !important;
     }
@@ -65,6 +70,13 @@ st.markdown("""
     }
     section[data-testid="stSidebar"] .stSlider > div > div {
         color: white;
+    }
+    section[data-testid="stSidebar"] nav a {
+        color: rgba(255,255,255,0.85) !important;
+        font-weight: 500 !important;
+    }
+    section[data-testid="stSidebar"] nav a:hover {
+        color: #4facfe !important;
     }
     section[data-testid="stSidebar"] hr {
         border-color: rgba(255,255,255,0.1);
@@ -289,22 +301,7 @@ def generate_data(n=200, seed=42):
 df = generate_data(200, 42)
 
 # ──────────────────────────────────────────────────
-#  SIDEBAR — Dark Mode
-# ──────────────────────────────────────────────────
-st.sidebar.markdown("""
-    <div style="padding: 12px 0 20px 0; text-align: center;">
-        <div style="font-size: 20px; font-weight: 800; color: white; letter-spacing: 0.5px;">Intelligence</div>
-        <div style="font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase;">Dashboard</div>
-    </div>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown("---")
-
-st.sidebar.markdown("""
-    <div style="color: rgba(255,255,255,0.5); font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">
-        Filters
-    </div>
-""", unsafe_allow_html=True)
+#  FILTER LOGIC
 
 seg = ["All"] + sorted(df["persona"].unique().tolist())
 sel_seg = st.sidebar.selectbox("Customer Profile", seg, label_visibility="collapsed")
@@ -328,9 +325,6 @@ st.sidebar.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# ──────────────────────────────────────────────────
-#  FILTER LOGIC
-# ──────────────────────────────────────────────────
 df_f = df.copy()
 if sel_seg != "All":
     df_f = df_f[df_f["persona"] == sel_seg]
@@ -433,7 +427,7 @@ with col1:
         plot_bgcolor="rgba(0,0,0,0)",
     )
 
-    st.plotly_chart(fig1, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
 
 with col2:
     st.markdown('<div class="section-title">Propensity Score by Segment</div>', unsafe_allow_html=True)
@@ -495,7 +489,7 @@ with col2:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig2, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig2, width='stretch', config={"displayModeBar": False})
 
 # ──────────────────────────────────────────────────
 #  ROW 2 — Histogram + Flags
@@ -554,7 +548,7 @@ with col3:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig3, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig3, width='stretch', config={"displayModeBar": False})
 
 with col4:
     st.markdown('<div class="section-title">Alert Flag Distribution</div>', unsafe_allow_html=True)
@@ -603,7 +597,7 @@ with col4:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig4, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
 
 # ──────────────────────────────────────────────────
 #  TABLE — Top 10 Priority Customers
@@ -632,7 +626,7 @@ styled = top10.style.map(
     else ("color:#D97706;font-weight:600;background:#FFF8E8" if v == "Alert" else ""),
     subset=["Alert Level"])
 
-st.dataframe(styled, use_container_width=True, height=280)
+st.dataframe(styled, width='stretch', height=280)
 
 # ──────────────────────────────────────────────────
 #  EXPANDER — Raw Data
@@ -642,7 +636,7 @@ with st.expander("Detailed Data", expanded=False):
         df_f[["CUSTOMER_NUMBER", "persona", "credit_propensity",
               "credit_hungry_label", "ir_query_count", "priority",
               "anomaly_score", "rule_flags"]].reset_index(drop=True),
-        use_container_width=True,
+        width='stretch',
         height=300)
 
 # ──────────────────────────────────────────────────

@@ -5,7 +5,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 
-st.set_page_config(page_title="Customer Intelligence Dashboard", page_icon=":bar_chart:",
+st.set_page_config(page_title="Customer Intelligence Dashboard",
                    layout="wide", initial_sidebar_state="expanded")
 
 # ──────────────────────────────────────────────────
