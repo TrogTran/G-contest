@@ -307,7 +307,6 @@ _CSS = """
 PLOTLY_LAYOUT = dict(
     template="plotly_white",
     font=dict(family="Inter, Segoe UI, system-ui", size=12, color="#4A5568"),
-    title_font=dict(size=13, color="#1a2744", family="Inter", weight=600),
     paper_bgcolor="white",
     plot_bgcolor="white",
     margin=dict(t=32, b=32, l=12, r=12),
@@ -327,6 +326,7 @@ PLOTLY_LAYOUT = dict(
         y=1.02,
         xanchor="left",
         x=0,
+        title=dict(text=""),
     ),
     xaxis=dict(
         gridcolor="#F0F4F8",
