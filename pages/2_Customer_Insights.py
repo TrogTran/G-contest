@@ -316,28 +316,44 @@ with col4:
     acq_trend = acq_trend.sort_values("acquisition_month")
 
     fig4 = go.Figure()
+
     fig4.add_trace(go.Bar(
         x=acq_trend["acquisition_month"],
         y=acq_trend["count"],
         marker=dict(
-            color="#0a0a1a",
-            line=dict(color="white", width=0.8),
+            color="#0D6EFD",
+            line=dict(color="rgba(255,255,255,0.6)", width=1),
+            opacity=0.95
         ),
-        hovertemplate="<b>%{x}</b><br>New: %{y:,}<extra></extra>",
-        width=0.6,
+        hovertemplate="<b>%{x}</b><br>New Customers: %{y:,}<extra></extra>",
+        width=0.65,
     ))
 
     fig4.update_layout(
         height=400,
-        xaxis=dict(title="", gridcolor="#E9ECEF", tickfont=dict(size=10, color="#212529")),
-        yaxis=dict(title=dict(text="New Customers", font=dict(size=12, color="#212529")),
-                   gridcolor="#E9ECEF", tickfont=dict(size=11, color="#212529")),
-        margin=dict(l=10, r=20, t=10, b=10),
-        template="none",
-        plot_bgcolor="white",
-        paper_bgcolor="white",
-        bargap=0.2,
-        hoverlabel=dict(bgcolor="white", font_size=13),
+        xaxis=dict(
+            title="",
+            gridcolor="#E9ECEF",
+            tickfont=dict(size=11, color="#495057"),
+            tickangle=-45
+        ),
+        yaxis=dict(
+            title=dict(text="New Customers", font=dict(size=12, color="#212529")),
+            gridcolor="#E9ECEF",
+            tickfont=dict(size=11, color="#495057"),
+            zerolinecolor="#DEE2E6"
+        ),
+        margin=dict(l=10, r=20, t=10, b=40),
+        template="plotly_white",
+        plot_bgcolor="rgba(255,255,255,0.95)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        bargap=0.15,
+        hoverlabel=dict(
+            bgcolor="white",
+            font_size=13,
+            font_color="#212529",
+            bordercolor="#E9ECEF"
+        ),
     )
 
     st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
