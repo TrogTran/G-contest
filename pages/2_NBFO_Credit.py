@@ -106,6 +106,7 @@ if sel_persona != "All" and "persona" in f.columns:
     f = f[f["persona"] == sel_persona]
 
 # ── HEADER ─────────────────────────────────────────────────────────────────
+st.markdown('<div class="nav-tab-bar">', unsafe_allow_html=True)
 page_nav = st.columns(4)
 with page_nav[0]:
     st.page_link("pages/0_Overview.py", label="Overview", icon="📊")
@@ -115,6 +116,7 @@ with page_nav[2]:
     st.page_link("pages/2_NBFO_Credit.py", label="NBFO & Credit", icon="💳", disabled=True)
 with page_nav[3]:
     st.page_link("pages/3_Security_Alerts.py", label="Security", icon="🔒")
+st.markdown('</div>', unsafe_allow_html=True)
 
 page_header(
     eyebrow="Customer Intelligence · Next Best Financial Offer",
