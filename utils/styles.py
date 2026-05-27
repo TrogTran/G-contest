@@ -53,6 +53,35 @@ _CSS = """
     margin: 14px 0 !important;
   }
 
+  /* Expander - replace hidden icon with +/- indicator */
+  .stExpander details summary {
+    position: relative !important;
+    padding-right: 28px !important;
+  }
+  .stExpander details summary::after {
+    content: "+" !important;
+    position: absolute !important;
+    right: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #006B7D !important;
+    font-family: 'Inter', sans-serif !important;
+  }
+  .stExpander details[open] summary::after {
+    content: "−" !important;
+  }
+
+  /* Plotly mode bar */
+  .modebar {
+    opacity: 0.3 !important;
+    transition: opacity 0.2s !important;
+  }
+  .modebar:hover { opacity: 1 !important; }
+  .modebar-btn { color: #4A5568 !important; }
+  .modebar-btn:hover { color: #1a2744 !important; }
+
   /* Nav links */
   section[data-testid="stSidebar"] nav a,
   a[data-testid="stPageLink"],
@@ -75,12 +104,13 @@ _CSS = """
     font-size: 0 !important; width: 0; height: 0; overflow: hidden; position: absolute;
   }
   button[data-testid="baseButton-header"]::after {
-    content: "‹" !important;
+    content: "<<" !important;
     font-family: 'Inter', sans-serif !important;
-    font-size: 20px !important; color: rgba(255,255,255,0.6) !important;
-    font-weight: 300 !important; position: absolute !important;
+    font-size: 14px !important; color: rgba(255,255,255,0.6) !important;
+    font-weight: 700 !important; position: absolute !important;
     top: 50% !important; left: 50% !important;
     transform: translate(-50%, -50%) !important;
+    letter-spacing: -2px !important;
   }
 
   /* ── PAGE HEADER BAND ─────────────────────────────────────────────── */
@@ -228,11 +258,17 @@ _CSS = """
 # ── PLOTLY SHARED THEME ────────────────────────────────────────────────────
 PLOTLY_LAYOUT = dict(
     template="plotly_white",
-    font=dict(family="Inter, Segoe UI, system-ui", size=11, color="#4A5568"),
-    title_font=dict(size=12, color="#1a2744", family="Inter"),
+    font=dict(family="Inter, Segoe UI, system-ui", size=12, color="#4A5568"),
+    title_font=dict(size=13, color="#1a2744", family="Inter", weight=600),
     paper_bgcolor="white",
     plot_bgcolor="white",
-    margin=dict(t=28, b=28, l=8, r=8),
+    margin=dict(t=32, b=32, l=12, r=12),
+    hovermode="x unified",
+    hoverlabel=dict(
+        bgcolor="white",
+        bordercolor="#E2E8F0",
+        font=dict(size=11, color="#1a2744"),
+    ),
     showlegend=True,
     legend=dict(
         bgcolor="rgba(0,0,0,0)",
@@ -240,12 +276,31 @@ PLOTLY_LAYOUT = dict(
         font=dict(size=10),
         orientation="h",
         yanchor="bottom",
-        y=1.01,
+        y=1.02,
         xanchor="left",
         x=0,
     ),
-    xaxis=dict(gridcolor="#F0F4F8", linecolor="#E2E8F0", tickfont=dict(size=10)),
-    yaxis=dict(gridcolor="#F0F4F8", linecolor="#E2E8F0", tickfont=dict(size=10)),
+    xaxis=dict(
+        gridcolor="#F0F4F8",
+        linecolor="#E2E8F0",
+        tickfont=dict(size=11),
+        zeroline=False,
+        showspikes=True,
+        spikethickness=1,
+        spikecolor="#E2E8F0",
+    ),
+    yaxis=dict(
+        gridcolor="#F0F4F8",
+        linecolor="#E2E8F0",
+        tickfont=dict(size=11),
+        zeroline=False,
+        showspikes=True,
+        spikethickness=1,
+        spikecolor="#E2E8F0",
+    ),
+    dragmode="zoom",
+    hoverdistance=100,
+    spikedistance=1000,
 )
 
 # Palette
