@@ -10,6 +10,11 @@ CUSTOM_CSS = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     * { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important; }
+    .material-icons, .material-symbols-outlined,
+    span[data-testid="stIconMaterial"] {
+        font-family: 'Material Icons', 'Material Icons Outlined', 'Material Symbols Outlined' !important;
+        font-size: inherit !important;
+    }
     .stExpander details summary span[data-testid="stIconMaterial"] { display: none !important; }
     .stApp { background: #F0F2F6; }
     section[data-testid="stSidebar"] {
@@ -118,20 +123,6 @@ def generate_sales_data(n_days=365, seed=42):
     return df
 
 df_sales = generate_sales_data()
-
-st.sidebar.markdown("""
-    <div style="padding: 12px 0 20px 0; text-align: center;">
-        <div style="font-size: 20px; font-weight: 800; color: white; letter-spacing: 0.5px;">Sales Analysis</div>
-        <div style="font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase;">Performance Overview</div>
-    </div>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown("---")
-
-st.sidebar.markdown("""
-    <div style="color: rgba(255,255,255,0.5); font-size: 10px; text-transform: uppercase;
-                letter-spacing: 1.5px; margin-bottom: 10px;">Filters</div>
-""", unsafe_allow_html=True)
 
 date_min = df_sales["date"].min()
 date_max = df_sales["date"].max()
@@ -252,7 +243,7 @@ with col1:
                    gridcolor="#F1F3F5", tickfont=dict(size=11, color="#212529")),
     )
 
-    st.plotly_chart(fig1, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
 
 with col2:
     st.markdown('<div class="section-title">Revenue by Category</div>', unsafe_allow_html=True)
@@ -287,7 +278,7 @@ with col2:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig2, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig2, width='stretch', config={"displayModeBar": False})
 
 col3, col4 = st.columns(2, gap="large")
 
@@ -323,7 +314,7 @@ with col3:
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
     )
 
-    st.plotly_chart(fig3, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig3, width='stretch', config={"displayModeBar": False})
 
 with col4:
     st.markdown('<div class="section-title">Top Selling Categories</div>', unsafe_allow_html=True)
@@ -362,7 +353,7 @@ with col4:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig4, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
 
 st.markdown("""
     <div style="margin-top: 24px;">
@@ -381,12 +372,12 @@ summary.columns = ["Date", "Revenue", "Orders", "Avg Order Value"]
 summary["Date"] = summary["Date"].dt.strftime("%b %d, %Y")
 summary.index = range(1, len(summary) + 1)
 
-st.dataframe(summary.tail(15), use_container_width=True, height=320)
+st.dataframe(summary.tail(15), width='stretch', height=320)
 
 with st.expander("Detailed Transaction Data", expanded=False):
     st.dataframe(
         df_f.sort_values("date", ascending=False).reset_index(drop=True),
-        use_container_width=True, height=300)
+        width='stretch', height=300)
 
 st.markdown("""
     <div style="margin-top: 32px; padding: 16px 0; text-align: center;">

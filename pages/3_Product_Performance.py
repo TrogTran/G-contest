@@ -10,6 +10,11 @@ CUSTOM_CSS = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     * { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important; }
+    .material-icons, .material-symbols-outlined,
+    span[data-testid="stIconMaterial"] {
+        font-family: 'Material Icons', 'Material Icons Outlined', 'Material Symbols Outlined' !important;
+        font-size: inherit !important;
+    }
     .stExpander details summary span[data-testid="stIconMaterial"] { display: none !important; }
     .stApp { background: #F0F2F6; }
     section[data-testid="stSidebar"] {
@@ -141,22 +146,8 @@ def generate_product_data(n_products=50, seed=42):
 
 df_prod = generate_product_data()
 
-st.sidebar.markdown("""
-    <div style="padding: 12px 0 20px 0; text-align: center;">
-        <div style="font-size: 20px; font-weight: 800; color: white; letter-spacing: 0.5px;">Product Performance</div>
-        <div style="font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase;">Catalog & Profitability</div>
-    </div>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown("---")
-
-st.sidebar.markdown("""
-    <div style="color: rgba(255,255,255,0.5); font-size: 10px; text-transform: uppercase;
-                letter-spacing: 1.5px; margin-bottom: 10px;">Filters</div>
-""", unsafe_allow_html=True)
-
 categories = ["All"] + sorted(df_prod["category"].unique().tolist())
-sel_cat = st.sidebar.multiselect("Category", categories[1:], default=categories[1:4])
+sel_cat = st.sidebar.multiselect("Category", categories[1:], default=categories[1:])
 
 price_min = float(df_prod["price"].min())
 price_max = float(df_prod["price"].max())
@@ -262,7 +253,7 @@ with col1:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig1, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
 
 with col2:
     st.markdown('<div class="section-title">Revenue Share by Category</div>', unsafe_allow_html=True)
@@ -296,7 +287,7 @@ with col2:
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
     )
 
-    st.plotly_chart(fig2, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig2, width='stretch', config={"displayModeBar": False})
 
 col3, col4 = st.columns(2, gap="large")
 
@@ -367,7 +358,7 @@ with col3:
         showlegend=False,
     )
 
-    st.plotly_chart(fig3, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig3, width='stretch', config={"displayModeBar": False})
 
 with col4:
     st.markdown('<div class="section-title">Product Ratings Distribution</div>', unsafe_allow_html=True)
@@ -419,7 +410,7 @@ with col4:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig4, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
 
 st.markdown("""
     <div style="margin-top: 24px;">
@@ -436,12 +427,12 @@ summary["profit_margin"] = summary["profit_margin"].apply(lambda x: f"{x}%")
 summary.columns = ["Product Name", "Category", "Price", "Units Sold", "Revenue", "Profit Margin", "Rating"]
 summary.index = range(1, len(summary) + 1)
 
-st.dataframe(summary, use_container_width=True, height=360)
+st.dataframe(summary, width='stretch', height=360)
 
 with st.expander("Detailed Product Data", expanded=False):
     st.dataframe(
         df_f.sort_values("revenue", ascending=False).reset_index(drop=True),
-        use_container_width=True, height=300)
+        width='stretch', height=300)
 
 st.markdown("""
     <div style="margin-top: 32px; padding: 16px 0; text-align: center;">

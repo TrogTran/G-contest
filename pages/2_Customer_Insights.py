@@ -11,6 +11,11 @@ CUSTOM_CSS = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     * { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important; }
+    .material-icons, .material-symbols-outlined,
+    span[data-testid="stIconMaterial"] {
+        font-family: 'Material Icons', 'Material Icons Outlined', 'Material Symbols Outlined' !important;
+        font-size: inherit !important;
+    }
     .stExpander details summary span[data-testid="stIconMaterial"] { display: none !important; }
     .stApp { background: #F0F2F6; }
     section[data-testid="stSidebar"] {
@@ -128,22 +133,8 @@ def generate_customer_data(n=500, seed=42):
 
 df_cust = generate_customer_data()
 
-st.sidebar.markdown("""
-    <div style="padding: 12px 0 20px 0; text-align: center;">
-        <div style="font-size: 20px; font-weight: 800; color: white; letter-spacing: 0.5px;">Customer Insights</div>
-        <div style="font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 2px; text-transform: uppercase;">Behavior & Segmentation</div>
-    </div>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown("---")
-
-st.sidebar.markdown("""
-    <div style="color: rgba(255,255,255,0.5); font-size: 10px; text-transform: uppercase;
-                letter-spacing: 1.5px; margin-bottom: 10px;">Filters</div>
-""", unsafe_allow_html=True)
-
 regions = ["All"] + sorted(df_cust["region"].unique().tolist())
-sel_region = st.sidebar.multiselect("Region", regions[1:], default=regions[1:3])
+sel_region = st.sidebar.multiselect("Region", regions[1:], default=regions[1:])
 
 segments = ["All"] + sorted(df_cust["segment"].unique().tolist())
 sel_segment = st.sidebar.selectbox("Segment", segments)
@@ -245,7 +236,7 @@ with col1:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig1, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig1, width='stretch', config={"displayModeBar": False})
 
 with col2:
     st.markdown('<div class="section-title">Customer Segment Distribution</div>', unsafe_allow_html=True)
@@ -281,7 +272,7 @@ with col2:
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
     )
 
-    st.plotly_chart(fig2, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig2, width='stretch', config={"displayModeBar": False})
 
 col3, col4 = st.columns(2, gap="large")
 
@@ -315,7 +306,7 @@ with col3:
         showlegend=False,
     )
 
-    st.plotly_chart(fig3, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig3, width='stretch', config={"displayModeBar": False})
 
 with col4:
     st.markdown('<div class="section-title">Customer Acquisition Trend</div>', unsafe_allow_html=True)
@@ -329,10 +320,8 @@ with col4:
         x=acq_trend["acquisition_month"],
         y=acq_trend["count"],
         marker=dict(
-            color=acq_trend["count"],
-            colorscale=[[0, "#DBEAFE"], [0.5, "#60A5FA"], [1, "#0D6EFD"]],
-            line=dict(color="white", width=1),
-            showscale=False,
+            color="#1a1a2e",
+            line=dict(color="rgba(255,255,255,0.3)", width=0.5),
         ),
         hovertemplate="<b>%{x}</b><br>New: %{y:,}<extra></extra>",
         width=0.6,
@@ -350,7 +339,7 @@ with col4:
         hoverlabel=dict(bgcolor="white", font_size=13),
     )
 
-    st.plotly_chart(fig4, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig4, width='stretch', config={"displayModeBar": False})
 
 st.markdown("""
     <div style="margin-top: 24px;">
@@ -369,7 +358,7 @@ top_cust["is_active"] = top_cust["is_active"].map({True: "Active", False: "Inact
 top_cust.columns = ["Customer ID", "Region", "Segment", "LTV", "Purchases", "Rating", "Status"]
 top_cust.index = range(1, len(top_cust) + 1)
 
-st.dataframe(top_cust, use_container_width=True, height=280)
+st.dataframe(top_cust, width='stretch', height=280)
 
 with st.expander("Detailed Customer Data", expanded=False):
     display_cols = ["customer_id", "region", "segment", "acquisition_date",
@@ -377,7 +366,7 @@ with st.expander("Detailed Customer Data", expanded=False):
                     "is_active", "churned", "support_tickets"]
     st.dataframe(
         df_f[display_cols].sort_values("acquisition_date", ascending=False).reset_index(drop=True),
-        use_container_width=True, height=300)
+        width='stretch', height=300)
 
 st.markdown("""
     <div style="margin-top: 32px; padding: 16px 0; text-align: center;">
