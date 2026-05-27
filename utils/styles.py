@@ -405,23 +405,26 @@ def page_header(
     if record_label:
         right = (
             f"<div style='text-align:right;font-size:11px;color:rgba(255,255,255,0.4);'>"
-            f"<b style='color:rgba(255,255,255,0.75);font-size:18px;display:block;'>{record_count}</b>"
+            f"<b style='color:rgba(255,255,255,0.85);font-size:20px;font-weight:700;display:block;letter-spacing:-0.5px;'>{record_count}</b>"
             f"{record_label}</div>"
         )
     sub_html = (
-        f"<div style='font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;'>{subtitle}</div>"
+        f"<div style='font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;'>{subtitle}</div>"
         if subtitle
         else ""
     )
     header_style = (
-        "background:#1a2744;border-radius:10px;padding:22px 28px 18px 28px;"
-        "margin-bottom:24px;display:flex;align-items:flex-end;justify-content:space-between;"
+        "background:linear-gradient(135deg,#1a2744 0%,#0f1d3a 100%);"
+        "border-radius:12px;padding:26px 32px 22px 32px;"
+        "margin-bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;"
+        "box-shadow:0 4px 20px rgba(26,39,68,0.25);"
+        "border-bottom:3px solid #5eb8c8;"
     )
     eyebrow_style = (
-        "font-size:10px;font-weight:600;letter-spacing:1.6px;"
-        "text-transform:uppercase;color:#5eb8c8;margin-bottom:4px;"
+        "font-size:10px;font-weight:700;letter-spacing:2px;"
+        "text-transform:uppercase;color:#5eb8c8;margin-bottom:6px;"
     )
-    title_style = "font-size:22px;font-weight:700;color:#ffffff;line-height:1.25;"
+    title_style = "font-size:24px;font-weight:800;color:#ffffff;line-height:1.2;letter-spacing:-0.3px;"
     st.markdown(
         f"<div style='{header_style}'>"
         f"<div>"
@@ -433,46 +436,68 @@ def page_header(
 
 
 _ACCENT_COLORS = {
-    "navy": "#1a2744",
-    "teal": "#006B7D",
-    "red": "#C0392B",
-    "amber": "#E67E22",
-    "green": "#1A7049",
-    "gold": "#C5933A",
+    "navy":  {"border": "#1a2744", "bg": "linear-gradient(135deg,#f0f3fa 0%,#e8edf8 100%)", "icon_color": "#1a2744"},
+    "teal":  {"border": "#006B7D", "bg": "linear-gradient(135deg,#f0fafa 0%,#e0f5f7 100%)", "icon_color": "#006B7D"},
+    "red":   {"border": "#C0392B", "bg": "linear-gradient(135deg,#fff5f5 0%,#ffe8e8 100%)", "icon_color": "#C0392B"},
+    "amber": {"border": "#E67E22", "bg": "linear-gradient(135deg,#fffaf0 0%,#fef0da 100%)", "icon_color": "#E67E22"},
+    "green": {"border": "#1A7049", "bg": "linear-gradient(135deg,#f0faf5 0%,#dcf5e8 100%)", "icon_color": "#1A7049"},
+    "gold":  {"border": "#C5933A", "bg": "linear-gradient(135deg,#fdfaf0 0%,#faf0d4 100%)", "icon_color": "#C5933A"},
 }
 
 
 def kpi_row(cards: list[dict]) -> None:
     """
-    Render a row of KPI cards using st.columns.
-    Each card dict: label, value, delta="", accent="navy"
+    Render a row of KPI metric cards.
+    Each card dict: label, value, delta="", accent="navy", icon=""
     accent options: navy, teal, red, amber, green, gold
+    icon: any emoji or unicode char shown decoratively top-right
     """
     cols = st.columns(len(cards))
     for col, c in zip(cols, cards):
-        accent_color = _ACCENT_COLORS.get(c.get("accent", "navy"), "#1a2744")
+        palette = _ACCENT_COLORS.get(c.get("accent", "navy"), _ACCENT_COLORS["navy"])
+        border_color = palette["border"]
+        bg = palette["bg"]
+        icon_color = palette["icon_color"]
         label = str(c.get("label", ""))
         value = str(c.get("value", ""))
+        icon = str(c.get("icon", ""))
 
         delta_html = ""
         raw_delta = c.get("delta")
         if raw_delta:
             d = str(raw_delta)
-            dc = "#1A7049" if d.startswith("+") else ("#C0392B" if d.startswith("-") else "#718096")
-            delta_html = f'<div style="font-size:11px;font-weight:500;color:{dc};margin-top:4px;">{d}</div>'
+            if d.startswith("+"):
+                dc, arrow = "#1A7049", "▲"
+            elif d.startswith("-"):
+                dc, arrow = "#C0392B", "▼"
+            else:
+                dc, arrow = "#718096", "–"
+            delta_html = (
+                f'<div style="font-size:11px;font-weight:600;color:{dc};margin-top:6px;">'
+                f'{arrow} {d}</div>'
+            )
+
+        icon_html = (
+            f'<div style="position:absolute;top:12px;right:14px;font-size:26px;'
+            f'opacity:0.18;color:{icon_color};line-height:1;">{icon}</div>'
+            if icon else ""
+        )
 
         card_style = (
-            f"background:white;border:1px solid #E2E8F0;border-top:3px solid {accent_color};"
-            f"border-radius:8px;padding:16px 18px 14px 18px;"
-            f"box-shadow:0 1px 4px rgba(0,0,0,0.05);margin-bottom:16px;"
+            f"position:relative;background:{bg};"
+            f"border:1px solid rgba(0,0,0,0.06);border-left:4px solid {border_color};"
+            f"border-radius:10px;padding:18px 20px 16px 20px;"
+            f"box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:16px;"
+            f"transition:box-shadow 0.2s;"
         )
 
         with col:
             st.markdown(
                 f"<div style='{card_style}'>"
-                f"<div style='font-size:10px;font-weight:600;letter-spacing:0.8px;"
-                f"text-transform:uppercase;color:#718096;margin-bottom:6px;'>{label}</div>"
-                f"<div style='font-size:28px;font-weight:700;color:#1a2744;line-height:1.1;'>{value}</div>"
+                f"{icon_html}"
+                f"<div style='font-size:10px;font-weight:700;letter-spacing:1px;"
+                f"text-transform:uppercase;color:#8898aa;margin-bottom:8px;'>{label}</div>"
+                f"<div style='font-size:30px;font-weight:800;color:#1a2744;line-height:1;letter-spacing:-0.5px;'>{value}</div>"
                 f"{delta_html}</div>",
                 unsafe_allow_html=True,
             )

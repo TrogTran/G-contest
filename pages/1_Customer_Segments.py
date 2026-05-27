@@ -116,20 +116,22 @@ flagged_n = (
 
 kpi_row(
     [
-        {"label": "Customers", "value": f"{len(f):,}", "accent": "navy"},
-        {"label": "Avg Transactions", "value": f"{avg_trans:,.0f}", "accent": "teal"},
-        {"label": "Avg Active Months", "value": f"{avg_months:.1f}", "accent": "gold"},
+        {"label": "Customers", "value": f"{len(f):,}", "accent": "navy", "icon": "👥"},
+        {"label": "Avg Transactions", "value": f"{avg_trans:,.0f}", "accent": "teal", "icon": "🔄"},
+        {"label": "Avg Active Months", "value": f"{avg_months:.1f}", "accent": "gold", "icon": "📅"},
         {
             "label": "Avg Annual Outflow",
             "value": f"{avg_outflow:.1f}M",
             "accent": "green",
+            "icon": "💸",
         },
         {
             "label": "Avg Credit Score",
             "value": f"{avg_propensity:.3f}",
             "accent": "amber",
+            "icon": "⭐",
         },
-        {"label": "Credit Hungry", "value": f"{credit_hungry_n:,}", "accent": "teal"},
+        {"label": "Credit Hungry", "value": f"{credit_hungry_n:,}", "accent": "teal", "icon": "💳"},
     ]
 )
 

@@ -136,11 +136,12 @@ avg_outflow_m = (
 
 kpi_row(
     [
-        {"label": "Targeted Customers", "value": f"{targeted_n:,}", "accent": "navy"},
+        {"label": "Targeted Customers", "value": f"{targeted_n:,}", "accent": "navy", "icon": "🎯"},
         {
             "label": "Credit Hungry",
             "value": f"{hungry_n:,}",
             "accent": "red",
+            "icon": "🔥",
             "delta": f"{hungry_n / targeted_n * 100:.1f}% of targeted"
             if targeted_n
             else "",
@@ -149,17 +150,20 @@ kpi_row(
             "label": "Avg Propensity Score",
             "value": f"{avg_prop:.3f}",
             "accent": "amber",
+            "icon": "📊",
         },
         {
             "label": "High Propensity ≥ 0.8",
             "value": f"{high_prop_n:,}",
             "accent": "green",
+            "icon": "⭐",
         },
-        {"label": "Avg IR Query Count", "value": f"{avg_ir:.1f}", "accent": "teal"},
+        {"label": "Avg IR Query Count", "value": f"{avg_ir:.1f}", "accent": "teal", "icon": "🔍"},
         {
             "label": "Avg Annual Outflow",
             "value": f"{avg_outflow_m:.1f}M",
             "accent": "gold",
+            "icon": "💸",
         },
     ]
 )

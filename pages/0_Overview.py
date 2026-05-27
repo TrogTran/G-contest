@@ -110,22 +110,24 @@ credit_hungry = int(f["credit_hungry"].sum()) if "credit_hungry" in f.columns el
 
 kpi_row(
     [
-        {"label": "Total Customers", "value": f"{total:,}", "accent": "navy"},
+        {"label": "Total Customers", "value": f"{total:,}", "accent": "navy", "icon": "👥"},
         {
             "label": "Critical Alerts",
             "value": f"{critical_n:,}",
             "accent": "red",
+            "icon": "🚨",
             "delta": f"{critical_n / total * 100:.1f}% of total" if total else "",
         },
         {
             "label": "Alert Flags",
             "value": f"{alert_n:,}",
             "accent": "amber",
+            "icon": "⚠️",
             "delta": f"{alert_n / total * 100:.1f}% of total" if total else "",
         },
-        {"label": "Avg Anomaly Score", "value": f"{avg_score:.4f}", "accent": "teal"},
-        {"label": "Avg Burst Ratio", "value": f"{avg_burst:.2f}", "accent": "gold"},
-        {"label": "Credit Hungry", "value": f"{credit_hungry:,}", "accent": "green"},
+        {"label": "Avg Anomaly Score", "value": f"{avg_score:.4f}", "accent": "teal", "icon": "📊"},
+        {"label": "Avg Burst Ratio", "value": f"{avg_burst:.2f}", "accent": "gold", "icon": "📈"},
+        {"label": "Credit Hungry", "value": f"{credit_hungry:,}", "accent": "green", "icon": "💳"},
     ]
 )
 

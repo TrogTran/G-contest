@@ -108,21 +108,23 @@ avg_burst = f["burst_ratio"].mean() if len(f) else 0
 
 kpi_row(
     [
-        {"label": "Total Flagged", "value": f"{total_f:,}", "accent": "navy"},
+        {"label": "Total Flagged", "value": f"{total_f:,}", "accent": "navy", "icon": "🛡️"},
         {
             "label": "Critical",
             "value": f"{critical_n:,}",
             "accent": "red",
+            "icon": "🚨",
             "delta": f"{critical_n / len(f) * 100:.2f}% of filtered",
         },
-        {"label": "Alert", "value": f"{alert_n:,}", "accent": "amber"},
+        {"label": "Alert", "value": f"{alert_n:,}", "accent": "amber", "icon": "⚠️"},
         {
             "label": "Avg Anomaly Score",
             "value": f"{avg_score_all:.4f}",
             "accent": "teal",
+            "icon": "📡",
         },
-        {"label": "Max Anomaly Score", "value": f"{max_score:.4f}", "accent": "red"},
-        {"label": "Avg Burst Ratio", "value": f"{avg_burst:.2f}", "accent": "gold"},
+        {"label": "Max Anomaly Score", "value": f"{max_score:.4f}", "accent": "red", "icon": "📈"},
+        {"label": "Avg Burst Ratio", "value": f"{avg_burst:.2f}", "accent": "gold", "icon": "⚡"},
     ]
 )
 
