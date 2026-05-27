@@ -179,7 +179,7 @@ with c2:
             text="avg_outflow_M",
         )
         fig2.update_traces(
-            texttemplate="%{text:.1f}M", textposition="outside", textfont_size=10
+            textposition="outside", textfont_size=10
         )
         fig2.update_layout(
             **{
@@ -282,7 +282,7 @@ with c5:
             text="alert_rate",
         )
         fig5.update_traces(
-            texttemplate="%{text:.1f}%", textposition="outside", textfont_size=10
+            textposition="outside", textfont_size=10
         )
         fig5.update_layout(
             **{
@@ -317,7 +317,7 @@ with c6:
             text="avg_propensity",
         )
         fig6.update_traces(
-            texttemplate="%{text:.3f}", textposition="outside", textfont_size=10
+            textposition="outside", textfont_size=10
         )
         fig6.update_layout(
             **{

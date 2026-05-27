@@ -281,7 +281,7 @@ with c3:
             text="credit_propensity",
         )
         fig3.update_traces(
-            texttemplate="%{text:.3f}", textposition="outside", textfont_size=10
+            textposition="outside", textfont_size=10
         )
         fig3.update_layout(
             **{

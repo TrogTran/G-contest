@@ -306,7 +306,7 @@ if "credit_propensity" in f.columns and "persona" in f.columns:
             text="credit_propensity",
         )
         fig5.update_traces(
-            texttemplate="%{text:.2f}", textposition="outside", textfont_size=10
+            textposition="outside", textfont_size=10
         )
         fig5.update_layout(
             **{
