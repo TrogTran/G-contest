@@ -477,11 +477,8 @@ def kpi_row(cards: list[dict]) -> None:
                 f'{arrow} {d}</div>'
             )
 
-        icon_html = (
-            f'<div style="position:absolute;top:12px;right:14px;font-size:26px;'
-            f'opacity:0.18;color:{icon_color};line-height:1;">{icon}</div>'
-            if icon else ""
-        )
+        icon_html = ""
+
 
         card_style = (
             f"position:relative;background:{bg};"
